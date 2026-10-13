@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دعم الرياضيات — المستويان الثالث والرابع (نسخة بدون إنترنت)</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #0f766e; --primary-hover: #115e59; --primary-light: #ccfbf1; --primary-dark: #134e4a;
+    --accent: #f59e0b; --accent-light: #fef3c7;
+    --success: #16a34a; --success-light: #dcfce7;
+    --danger: #dc2626; --danger-light: #fee2e2;
+    --bg: #f6f7f4; --card: #ffffff; --border: #e2e8f0; --text: #1e293b; --muted: #64748b;
+    --radius: 16px; --radius-sm: 10px;
+    --shadow: 0 4px 10px -2px rgb(0 0 0 / .06);
+  }
+  body {
+    font-family: 'Tajawal', 'Cairo', 'Segoe UI', 'Noto Naskh Arabic', Tahoma, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh;
+    display: flex; flex-direction: column; font-size: 17px;
+  }
+  .ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+  header { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 40; }
+  .header-container { max-width: 1150px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .logo { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), #0ea5e9); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; }
+  .brand-title { font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .badge { background: var(--primary-light); color: var(--primary-dark); font-size: .72rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; border: 1px solid #99f6e4; }
+  .badge-amber { background: var(--accent-light); color: #92400e; border-color: #fde68a; }
+  .header-sub { font-size: .74rem; color: var(--muted); }
+  .header-actions { display: flex; gap: 6px; align-items: center; }
+  main { flex: 1; max-width: 1000px; width: 100%; margin: 0 auto; padding: 22px 14px; }
+  footer { background: #fff; border-top: 1px solid var(--border); padding: 12px 16px; text-align: center; font-size: .78rem; color: var(--muted); }
+  footer .credit { direction: ltr; font-weight: 800; color: var(--primary-dark); letter-spacing: .5px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; position: relative; overflow: hidden; }
+  .card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(to left, var(--primary), #0ea5e9, var(--accent)); }
+  .narrow { max-width: 600px; margin: 0 auto; }
+  .mid { max-width: 760px; margin: 0 auto; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; font-size: .95rem; font-weight: 700; border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-hover); }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent:hover { filter: brightness(1.05); }
+  .btn-secondary { background: #fff; border-color: var(--border); color: var(--text); }
+  .btn-secondary:hover { background: #f1f5f9; }
+  .btn-soft { background: var(--primary-light); border-color: #99f6e4; color: var(--primary-dark); }
+  .btn-soft:hover { background: #99f6e4; }
+  .btn-sm { padding: 6px 12px; font-size: .8rem; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .icon-btn { padding: 7px 10px; border-radius: var(--radius-sm); background: #fff; border: 1px solid var(--border); cursor: pointer; font-size: 1rem; }
+
+  .screen { display: none; animation: fadeIn .25s ease-out; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes pop { 0% { transform: scale(.9); } 60% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: .88rem; font-weight: 700; color: #334155; margin-bottom: 6px; }
+  .form-input, .form-select { width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: #f8fafc; font-size: 1rem; font-family: inherit; color: var(--text); outline: none; }
+  .form-input:focus, .form-select:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(15,118,110,.15); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip { padding: 4px 14px; font-size: .8rem; font-weight: 700; border-radius: 999px; background: #fff; border: 1px solid var(--border); cursor: pointer; }
+  .chip.active, .chip:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .level-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .level-card { border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 14px; cursor: pointer; text-align: center; background: #fff; transition: all .15s; }
+  .level-card .big { font-size: 2rem; font-weight: 900; color: var(--primary); line-height: 1.2; }
+  .level-card.active { border-color: var(--primary); background: var(--primary-light); }
+
+  .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; margin-top: 16px; }
+  .game-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; cursor: pointer; transition: all .2s; display: flex; flex-direction: column; justify-content: space-between; }
+  .game-card:hover { border-color: #5eead4; transform: translateY(-2px); box-shadow: 0 10px 15px -5px rgb(0 0 0 / .08); }
+  .game-card.done { background: #f0fdf4; border-color: #86efac; }
+  .gc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .gc-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0; }
+  .gc-title { font-size: 1rem; font-weight: 800; }
+  .gc-desc { font-size: .82rem; color: var(--muted); margin-bottom: 10px; flex: 1; }
+  .gc-foot { display: flex; justify-content: space-between; border-top: 1px solid #f1f5f9; padding-top: 8px; font-size: .78rem; font-weight: 700; color: var(--primary); }
+
+  .hud { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #f8fafc; padding: 10px 14px; border-radius: var(--radius-sm); margin-bottom: 16px; border: 1px solid var(--border); font-size: .85rem; font-weight: 700; flex-wrap: wrap; }
+  .progress { height: 8px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 16px; }
+  .progress > div { height: 100%; background: linear-gradient(to left, var(--primary), #0ea5e9); transition: width .3s; }
+  .q-box { background: #fff; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); padding: 16px; font-size: 1.1rem; font-weight: 800; text-align: center; margin-bottom: 16px; line-height: 1.8; }
+  .q-big { font-size: 2.2rem; font-weight: 900; letter-spacing: 1px; }
+  .answers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .ans-btn { background: #fff; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 13px 15px; font-size: 1rem; font-weight: 700; text-align: right; cursor: pointer; font-family: inherit; color: var(--text); transition: all .15s; }
+  .ans-btn.center { text-align: center; font-size: 1.6rem; }
+  .ans-btn:hover:not(:disabled) { border-color: var(--primary); background: #f0fdfa; }
+  .ans-btn.correct { background: var(--success-light) !important; border-color: var(--success) !important; color: #14532d !important; }
+  .ans-btn.wrong { background: var(--danger-light) !important; border-color: var(--danger) !important; color: #7f1d1d !important; }
+  .feedback { padding: 13px 15px; border-radius: var(--radius-sm); margin: 14px 0; font-size: .92rem; font-weight: 600; }
+  .feedback.ok { background: #f0fdf4; border: 1px solid #bbf7d0; color: #14532d; }
+  .feedback.ko { background: #fef2f2; border: 1px solid #fecaca; color: #7f1d1d; }
+  .feedback ul { margin: 6px 22px 0 0; }
+  .row-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+  .num-in { width: 150px; padding: 8px; font-size: 1.8rem; font-weight: 800; text-align: center; direction: ltr; border: 2px solid #94a3b8; border-radius: 10px; font-family: inherit; outline: none; background: #fff; }
+  .num-in:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,118,110,.15); }
+  .num-in.sm { width: 90px; font-size: 1.3rem; }
+  .answer-line { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+
+  /* Reminder / modelling */
+  .rem-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  .rem-tag { background: var(--accent-light); color: #92400e; border: 1px solid #fde68a; font-size: .75rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+  .rem-list { list-style: none; display: grid; gap: 8px; margin-bottom: 14px; }
+  .rem-list li { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; font-size: .93rem; }
+  .rem-list li::before { content: "💡 "; }
+  .model-box { background: #fffbeb; border: 2px dashed #fcd34d; border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+  .model-box h4 { font-size: .95rem; font-weight: 800; color: #92400e; margin-bottom: 8px; }
+  .steps { margin: 4px 22px 0 0; font-size: .92rem; }
+  .steps li { margin-bottom: 4px; }
+
+  /* Representations */
+  .pieces { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; justify-content: center; min-height: 80px; background: #fffbeb; border: 2px dashed #fcd34d; border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+  .builder { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-bottom: 12px; }
+  .builder .unit { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 8px; text-align: center; font-size: .85rem; font-weight: 700; }
+  .builder .unit .ctrls { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
+  .wheel-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+
+  /* Place value table */
+  table.pv { border-collapse: collapse; margin: 0 auto 14px; direction: ltr; }
+  table.pv th { background: var(--primary); color: #fff; padding: 8px 14px; font-size: .9rem; border: 1px solid #0d5e57; }
+  table.pv td { border: 1px solid var(--border); padding: 8px; text-align: center; background: #fff; }
+  table.pv td input { width: 54px; height: 54px; font-size: 1.6rem; font-weight: 800; text-align: center; border: 2px solid #94a3b8; border-radius: 8px; font-family: inherit; }
+  table.pv td.show { font-size: 1.6rem; font-weight: 900; }
+
+  /* Column operations */
+  .col-op { display: grid; direction: ltr; gap: 4px; justify-content: center; margin: 0 auto 14px; background: #fff; padding: 14px 18px; border: 1px solid var(--border); border-radius: 12px; width: max-content; }
+  .cell { width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; font-weight: 800; }
+  .cell.carry input { width: 28px; height: 28px; font-size: .9rem; color: #b45309; border: 1px dashed #f59e0b; border-radius: 6px; text-align: center; font-weight: 800; background: #fffbeb; }
+  .cell.res input { width: 44px; height: 48px; font-size: 1.6rem; font-weight: 800; text-align: center; border: 2px solid #94a3b8; border-radius: 8px; font-family: inherit; }
+  .cell.res input:focus { border-color: var(--primary); outline: none; }
+  .op-line { grid-column: 1 / -1; height: 3px; background: var(--text); border-radius: 2px; margin: 2px 0; }
+  .col-head { font-size: .7rem; color: var(--muted); font-weight: 700; height: 18px; }
+
+  /* Ordering */
+  .seq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .seq-item { display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1px solid var(--border); padding: 10px 14px; border-radius: var(--radius-sm); font-size: 1.4rem; font-weight: 800; }
+  .seq-btn { padding: 4px 10px; background: #f1f5f9; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-size: .9rem; margin-inline-start: 4px; }
+
+  /* Problems */
+  .problem-text { background: #f0fdfa; border-right: 5px solid var(--primary); padding: 14px; border-radius: 10px; font-size: 1.1rem; font-weight: 700; margin-bottom: 14px; line-height: 2; }
+  .fourq { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .fourq span { padding: 4px 10px; border-radius: 999px; font-size: .75rem; font-weight: 800; background: #f1f5f9; color: var(--muted); border: 1px solid var(--border); }
+  .fourq span.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .fourq span.ok { background: var(--success-light); color: #14532d; border-color: #86efac; }
+
+  /* Timer */
+  .timer { height: 6px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 14px; }
+  .timer > div { height: 100%; background: var(--accent); width: 100%; }
+
+  .stars { font-size: 2.6rem; letter-spacing: 4px; margin: 6px 0 10px; animation: pop .4s ease-out; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .stat { background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; text-align: center; }
+  .stat .k { font-size: .75rem; color: var(--muted); }
+  .stat .v { font-size: 1.15rem; font-weight: 800; }
+
+  /* Drawer */
+  .drawer-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.4); z-index: 100; display: none; }
+  .drawer { position: fixed; top: 0; bottom: 0; right: 0; width: 100%; max-width: 540px; background: #fff; z-index: 101; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .25s ease-out; box-shadow: -4px 0 25px -5px rgba(0,0,0,.2); }
+  .drawer.open { transform: none; }
+  .drawer-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .drawer-content { flex: 1; overflow-y: auto; padding: 18px; font-size: .92rem; }
+  .drawer-content h4 { color: var(--primary-dark); font-weight: 800; margin: 16px 0 6px; }
+  .drawer-content ul, .drawer-content ol { margin-right: 20px; margin-bottom: 8px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin-top: 14px; }
+  table.res { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  table.res th, table.res td { padding: 8px 9px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  table.res th { background: #f8fafc; font-weight: 800; color: #334155; }
+  .pct { display: inline-block; min-width: 40px; text-align: center; padding: 1px 6px; border-radius: 6px; font-weight: 800; }
+  .pct.hi { background: #dcfce7; color: #166534; } .pct.mid { background: #fef9c3; color: #854d0e; } .pct.lo { background: #fee2e2; color: #991b1b; } .pct.na { color: #cbd5e1; }
+  .bars { display: grid; gap: 6px; margin-top: 10px; }
+  .bar-row { display: grid; grid-template-columns: 170px 1fr 48px; align-items: center; gap: 8px; font-size: .8rem; font-weight: 700; }
+  .bar-track { height: 12px; background: #f1f5f9; border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; }
+
+  @media (max-width: 560px) {
+    .level-pick { grid-template-columns: 1fr; }
+    .cell { width: 38px; height: 40px; font-size: 1.45rem; }
+    .cell.res input { width: 36px; height: 42px; font-size: 1.35rem; }
+    .bar-row { grid-template-columns: 110px 1fr 40px; }
+    .header-sub { display: none; }
+  }
+  @media print {
+    header, footer, .no-print { display: none !important; }
+    body { background: #fff; }
+    .card { box-shadow: none; border: 2px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="brand">
+      <div class="logo">123</div>
+      <div>
+        <div class="brand-title">
+          <span>دعم الرياضيات</span>
+          <span class="badge">المستويان 3 و4</span>
+          <span class="badge badge-amber">يعمل بدون إنترنت</span>
+        </div>
+        <div class="header-sub">برنامج دعم التعلمات الأساس — مدارس الريادة • مجموعة مدارس گيگو المركز</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-soft btn-sm" onclick="openDrawer()">📖 ملخصات الدروس</button>
+      <button class="btn btn-secondary btn-sm" onclick="showScreen('screen-dashboard')">🛡️ فضاء الأستاذ</button>
+      <button class="icon-btn" id="btn-sound" title="الصوت" onclick="toggleSound()">🔊</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. WELCOME -->
+  <section id="screen-welcome" class="screen active">
+    <div class="card narrow">
+      <div style="text-align:center">
+        <div style="font-size:3rem">🧮</div>
+        <h2 style="font-size:1.35rem;font-weight:800;margin-bottom:4px">مرحبا بك في فضاء أنشطة الرياضيات</h2>
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:20px">
+          مراجعة ودعم وألعاب تربوية — الأعداد والحساب والعمليات وحل المسائل<br>
+          <strong>إعداد: الأستاذ الحسين بوربيع — مجموعة مدارس گيگو المركز</strong>
+        </p>
+      </div>
+      <div id="form-login">
+        <div class="form-group">
+          <label class="form-label" for="in-name">الاسم والنسب:</label>
+          <input type="text" id="in-name" class="form-input" placeholder="اكتب اسمك الكامل..." required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <span class="form-label">المستوى الدراسي:</span>
+          <div class="level-pick">
+            <div class="level-card" data-level="3" onclick="pickLevel(3)">
+              <div class="big">3</div><div style="font-weight:800">المستوى الثالث</div>
+              <div style="font-size:.75rem;color:var(--muted)">الأعداد من 0 إلى 999 • الجمع والطرح</div>
+            </div>
+            <div class="level-card" data-level="4" onclick="pickLevel(4)">
+              <div class="big">4</div><div style="font-weight:800">المستوى الرابع</div>
+              <div style="font-size:.75rem;color:var(--muted)">الأعداد من 0 إلى 9999 • الجمع والطرح والضرب</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="in-group">الفوج:</label>
+          <input type="text" id="in-group" class="form-input" placeholder="مثال: فوج 01" required autocomplete="off">
+          <div class="chips">
+            <span class="chip" onclick="pickGroup(this,'فوج 01')">فوج 01</span>
+            <span class="chip" onclick="pickGroup(this,'فوج 02')">فوج 02</span>
+          </div>
+        </div>
+        <p id="login-err" style="color:var(--danger);font-size:.85rem;font-weight:700;display:none;margin-bottom:8px"></p>
+        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+          <button type="button" id="btn-login" class="btn btn-primary" style="flex:1;padding:12px" onclick="doLogin()">🚀 لنبدأ</button>
+          <button type="button" class="btn btn-soft" onclick="openDrawer()">📖 أراجع الملخصات أولا</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. INTRO -->
+  <section id="screen-intro" class="screen">
+    <div class="card mid">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;gap:8px;flex-wrap:wrap">
+        <h3 style="font-size:1.15rem;font-weight:800">أهلا بك يا <span id="intro-name" style="color:var(--primary)"></span> 👋</h3>
+        <span class="badge" id="intro-level"></span>
+      </div>
+      <p style="font-size:.92rem;margin-bottom:10px">في نهاية هذه الأنشطة ستكون قادرا على:</p>
+      <ul class="rem-list" id="intro-goals"></ul>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px">قبل كل نشاط ستجد <strong>بطاقة تذكير</strong> فيها ما تحتاجه ومثال محلول. اقرأها جيدا، ثم ابدأ. 🔄 الأعداد والتمارين والمسائل <strong>تتجدد في كل محاولة</strong>، فيمكنك إعادة أي نشاط للتدرب أكثر.</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+        <button class="btn btn-soft" onclick="openDrawer()">📖 ملخصات الدروس</button>
+        <button class="btn btn-primary" onclick="showMenu()">🎮 إلى الأنشطة</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MENU -->
+  <section id="screen-menu" class="screen">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <h2 style="font-size:1.25rem;font-weight:800">لوحة الأنشطة</h2>
+        <p style="font-size:.82rem;color:var(--muted)">المتعلم(ة): <strong id="menu-name"></strong> • <span id="menu-class"></span></p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div style="background:#fff;border:1px solid var(--border);padding:6px 14px;border-radius:999px;font-weight:800;font-size:.85rem;color:var(--success)">الرصيد: <span id="menu-score">0</span> نقطة</div>
+        <button class="btn btn-accent btn-sm" id="btn-finish" style="display:none" onclick="finishAll()">🏆 النتيجة والشهادة</button>
+      </div>
+    </div>
+    <div class="games-grid" id="games-grid"></div>
+  </section>
+
+  <!-- 4. REMINDER (modelling before activity) -->
+  <section id="screen-reminder" class="screen">
+    <div class="card mid">
+      <div class="rem-head">
+        <div class="gc-icon" id="rem-icon"></div>
+        <div style="flex:1">
+          <span class="rem-tag">بطاقة التذكير والنمذجة</span>
+          <h3 style="font-size:1.15rem;font-weight:800;margin-top:4px" id="rem-title"></h3>
+        </div>
+      </div>
+      <div id="rem-body"></div>
+      <div class="row-actions">
+        <button class="btn btn-secondary btn-sm" onclick="showMenu()">← القائمة</button>
+        <button class="btn btn-primary" onclick="startRun()">فهمت، أبدأ النشاط ←</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PLAY -->
+  <section id="screen-play" class="screen">
+    <div class="card mid">
+      <div class="hud">
+        <button class="btn btn-secondary btn-sm" onclick="leaveRun()">← القائمة</button>
+        <span id="play-title"></span>
+        <span id="play-progress"></span>
+        <span style="color:var(--success)">⭐ <span id="play-score">0</span></span>
+      </div>
+      <div class="progress"><div id="play-bar" style="width:0%"></div></div>
+      <div id="play-area"></div>
+      <div id="play-feedback" class="feedback" style="display:none"></div>
+      <div class="row-actions">
+        <button class="btn btn-soft btn-sm" onclick="showReminderAgain()">💡 بطاقة التذكير</button>
+        <button class="btn btn-primary" id="btn-next" style="display:none" onclick="nextItem()">التالي ←</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ACTIVITY DONE -->
+  <section id="screen-actdone" class="screen">
+    <div class="card narrow" style="text-align:center">
+      <div class="stars" id="ad-stars"></div>
+      <h3 style="font-size:1.25rem;font-weight:800" id="ad-title"></h3>
+      <p id="ad-msg" style="color:var(--muted);margin:6px 0 16px"></p>
+      <div class="stat-grid">
+        <div class="stat"><div class="k">النقط</div><div class="v" id="ad-score"></div></div>
+        <div class="stat"><div class="k">إجابات صحيحة</div><div class="v" id="ad-correct" style="color:var(--success)"></div></div>
+        <div class="stat"><div class="k">نسبة النجاح</div><div class="v" id="ad-pct" style="color:var(--primary)"></div></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-secondary" onclick="openActivity(state.lastAct)">🔄 أعيد النشاط</button>
+        <button class="btn btn-primary" onclick="showMenu()">إلى نشاط آخر ←</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. RESULTS / CERTIFICATE -->
+  <section id="screen-results" class="screen">
+    <div class="card mid" style="text-align:center">
+      <div style="font-size:3.3rem">🏆</div>
+      <span class="badge" style="font-size:.85rem;padding:4px 12px">شهادة تشجيع — أنشطة دعم الرياضيات</span>
+      <h2 style="font-size:1.5rem;font-weight:900;margin:10px 0 4px">أحسنت يا <span id="res-name"></span>!</h2>
+      <p id="res-msg" style="color:var(--muted);margin-bottom:18px"></p>
+      <div class="stat-grid">
+        <div class="stat"><div class="k">المستوى والفوج</div><div class="v" id="res-class"></div></div>
+        <div class="stat"><div class="k">الأنشطة المنجزة</div><div class="v" id="res-done" style="color:var(--primary)"></div></div>
+        <div class="stat"><div class="k">الرصيد</div><div class="v" id="res-score" style="color:var(--success)"></div></div>
+        <div class="stat"><div class="k">نسبة النجاح</div><div class="v" id="res-pct" style="color:#0369a1"></div></div>
+      </div>
+      <div class="table-wrap" style="margin-bottom:16px"><table class="res" id="res-table"></table></div>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:16px">الأستاذ الحسين بوربيع — مجموعة مدارس گيگو المركز — مديرية بولمان<br><span class="ltr" style="font-weight:800">LHOUSSAINE BOURBI — S.S GUIGOU — BOULMANE 2026</span></p>
+      <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;padding:9px;font-size:.8rem;color:#065f46;font-weight:700;margin-bottom:18px" class="no-print" id="res-sync">نتيجتك محفوظة على هذا الجهاز في سجل الأستاذ.</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap" class="no-print">
+        <button class="btn btn-secondary" onclick="showMenu()">← الأنشطة</button>
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ طباعة الشهادة</button>
+        <button class="btn btn-primary" onclick="restartApp()">🔄 متعلم(ة) جديد(ة)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. TEACHER DASHBOARD -->
+  <section id="screen-dashboard" class="screen">
+    <div class="card" style="max-width:980px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;gap:8px;flex-wrap:wrap">
+        <div>
+          <h3 style="font-size:1.15rem;font-weight:800">🛡️ سجل نتائج المتعلمين</h3>
+          <p style="font-size:.75rem;color:var(--muted)">النتائج محفوظة على هذا الجهاز فقط (المتصفح نفسه)</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="leaveDashboard()">← خروج</button>
+      </div>
+
+      <div id="t-login" style="max-width:380px;margin:20px auto;text-align:center">
+        <p style="font-size:.88rem;font-weight:700;color:var(--muted);margin-bottom:10px">أدخل القن السري للاطلاع على النتائج:</p>
+        <input type="password" id="t-pwd" class="form-input" placeholder="القن السري..." style="margin-bottom:12px" onkeydown="if(event.key==='Enter')authTeacher()">
+        <button class="btn btn-primary" style="width:100%" onclick="authTeacher()">دخول</button>
+        <button type="button" class="btn btn-secondary btn-sm" style="margin-top:10px" onclick="recoverPwd()">🔓 نسيت القن؟</button>
+        <p style="font-size:.72rem;color:var(--muted);margin-top:10px">القن الافتراضي يُغيَّر من داخل اللوحة بعد أول دخول.</p>
+      </div>
+
+      <div id="t-panel" style="display:none">
+        <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <input type="text" id="t-search" class="form-input" placeholder="بحث بالاسم أو الفوج..." style="max-width:220px" oninput="renderTeacher()">
+            <select id="t-level" class="form-select" style="max-width:150px" onchange="renderTeacher()">
+              <option value="">كل المستويات</option><option value="3">المستوى 3</option><option value="4">المستوى 4</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-soft btn-sm" onclick="exportCSV()">📥 تصدير Excel / CSV</button>
+            <button class="btn btn-secondary btn-sm" onclick="changePwd()">🔑 تغيير القن</button>
+            <button class="btn btn-secondary btn-sm" style="color:var(--danger)" onclick="clearResults()">🗑️ تفريغ السجل</button>
+          </div>
+        </div>
+        <div style="margin-top:14px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:12px">
+          <div style="font-weight:800;font-size:.9rem;margin-bottom:6px">🌐 الربط بالإنترنت (Google Sheets)</div>
+          <p style="font-size:.78rem;color:var(--muted);margin-bottom:8px">تُرسل كل نتيجة إلى جدولك تلقائيا. إن انقطع الإنترنت تُحفظ هنا وتُرسل عند عودته.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <input type="text" id="cloud-url" class="form-input" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" style="flex:1;min-width:220px;font-size:.8rem">
+            <button class="btn btn-primary btn-sm" onclick="saveCloudUrl()">💾 حفظ الرابط</button>
+            <button class="btn btn-soft btn-sm" onclick="testCloud()">🔌 اختبار</button>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:.8rem;font-weight:700">
+            <span id="cloud-status"></span>
+            <button class="btn btn-secondary btn-sm" onclick="flushQueue(true)">📤 أرسل الآن</button>
+            <button class="btn btn-secondary btn-sm" onclick="pushAllLocal()">⬆️ أرسل كل السجل المحلي</button>
+          </div>
+        </div>
+        <div style="margin-top:14px;background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:12px">
+          <div style="font-weight:800;font-size:.9rem">متوسط النجاح حسب النشاط <span style="font-weight:600;color:var(--muted);font-size:.75rem">(حسب التصفية الحالية — يساعد على تحديد التعثرات)</span></div>
+          <div class="bars" id="t-bars"></div>
+        </div>
+        <div class="table-wrap"><table class="res"><thead id="t-head"></thead><tbody id="t-body"></tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Drawer: lesson summaries -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div><h4 style="font-weight:800">📖 ملخصات الدروس</h4><span style="font-size:.72rem;color:var(--muted)">مرحلة دعم التعلمات الأساس — الرياضيات</span></div>
+    <button class="icon-btn" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-content">
+    <div class="tabs">
+      <button class="btn btn-sm btn-primary" id="tab-3" onclick="renderDrawer(3)">المستوى الثالث</button>
+      <button class="btn btn-sm btn-secondary" id="tab-4" onclick="renderDrawer(4)">المستوى الرابع</button>
+    </div>
+    <div id="drawer-body"></div>
+  </div>
+</aside>
+
+<div id="ui-modal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:200;align-items:center;justify-content:center;padding:16px">
+  <div class="card" style="max-width:420px;width:100%;text-align:center">
+    <p id="ui-msg" style="font-weight:700;margin:8px 0 14px"></p>
+    <input id="ui-input" class="form-input" type="text" style="display:none;margin-bottom:14px">
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="btn btn-primary" id="ui-ok">حسنا</button>
+      <button class="btn btn-secondary" id="ui-cancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  مادة الرياضيات • دعم التعلمات الأساس للمستويين الثالث والرابع • مجموعة مدارس گيگو المركز — مديرية بولمان — أكاديمية فاس مكناس<br>
+  <span class="credit">LHOUSSAINE BOURBI — S.S GUIGOU — BOULMANE 2026</span>
+</footer>
+
+<script>
+/* =====================================================================
+   1. SOUND (Web Audio, no files)
+   ===================================================================== */
+class Synth {
+  constructor() { this.ctx = null; this.muted = false; }
+  init() {
+    if (!this.ctx) { const A = window.AudioContext || window.webkitAudioContext; if (A) this.ctx = new A(); }
+    if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+  }
+  tone(f, d = .15, type = 'sine', g = .14) {
+    if (this.muted) return; this.init(); if (!this.ctx) return;
+    try {
+      const o = this.ctx.createOscillator(), gn = this.ctx.createGain();
+      o.type = type; o.frequency.setValueAtTime(f, this.ctx.currentTime);
+      gn.gain.setValueAtTime(g, this.ctx.currentTime);
+      gn.gain.exponentialRampToValueAtTime(.001, this.ctx.currentTime + d);
+      o.connect(gn); gn.connect(this.ctx.destination); o.start(); o.stop(this.ctx.currentTime + d);
+    } catch (e) {}
+  }
+  click() { this.tone(620, .05, 'triangle', .08); }
+  ok() { [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => this.tone(f, .12), i * 70)); }
+  ko() { [240, 180].forEach((f, i) => setTimeout(() => this.tone(f, .18, 'sawtooth', .1), i * 110)); }
+  fanfare() { [523, 659, 784, 1046, 1318].forEach((f, i) => setTimeout(() => this.tone(f, .25, 'triangle', .18), i * 100)); }
+}
+const sound = new Synth();
+function toggleSound() { sound.muted = !sound.muted; document.getElementById('btn-sound').textContent = sound.muted ? '🔇' : '🔊'; }
+
+/* In-page dialogs: alert/confirm/prompt are silently blocked in some viewers */
+function uiDialog(msg, { cancel = false, input = false } = {}, onOk) {
+  const m = $('ui-modal'), inp = $('ui-input');
+  $('ui-msg').textContent = msg;
+  inp.style.display = input ? 'block' : 'none'; inp.value = '';
+  $('ui-cancel').style.display = cancel ? 'inline-flex' : 'none';
+  m.style.display = 'flex';
+  const close = () => { m.style.display = 'none'; };
+  $('ui-ok').onclick = () => { close(); if (onOk) onOk(inp.value); };
+  $('ui-cancel').onclick = close;
+  setTimeout(() => (input ? inp : $('ui-ok')).focus(), 30);
+  inp.onkeydown = e => { if (e.key === 'Enter') $('ui-ok').click(); };
+}
+const uiAlert = msg => uiDialog(msg);
+const uiConfirm = (msg, onYes) => uiDialog(msg, { cancel: true }, onYes);
+const uiPrompt = (msg, onOk) => uiDialog(msg, { cancel: true, input: true }, onOk);
+
+/* =====================================================================
+   2. HELPERS
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const rand = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const shuffle = arr => { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const L = s => `<span class="ltr">${s}</span>`;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const digitsOf = n => String(n).split('').map(Number);
+const PLACE_NAMES = ['الوحدات', 'العشرات', 'المئات', 'الآلاف'];
+const PLACE_SING = ['وحدات', 'عشرات', 'مئات', 'آلاف'];
+
+/* Arabic number words, 0..9999 (counting form, as in the support booklets) */
+const W_UNITS = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
+const W_TENS = ['', 'عشرة', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
+const W_HUND = ['', 'مئة', 'مئتان', 'ثلاث مئة', 'أربع مئة', 'خمس مئة', 'ست مئة', 'سبع مئة', 'ثمان مئة', 'تسع مئة'];
+function below100(n) {
+  if (n === 0) return '';
+  if (n < 10) return W_UNITS[n];
+  if (n === 10) return 'عشرة';
+  if (n === 11) return 'أحد عشر';
+  if (n === 12) return 'اثنا عشر';
+  if (n < 20) return W_UNITS[n - 10] + ' عشر';
+  const u = n % 10, t = Math.floor(n / 10);
+  return u ? W_UNITS[u] + ' و' + W_TENS[t] : W_TENS[t];
+}
+function toWords(n) {
+  if (n === 0) return 'صفر';
+  const parts = [];
+  const th = Math.floor(n / 1000), h = Math.floor(n / 100) % 10, r = n % 100;
+  if (th === 1) parts.push('ألف'); else if (th === 2) parts.push('ألفان'); else if (th > 2) parts.push(W_UNITS[th] + ' آلاف');
+  if (h) parts.push(W_HUND[h]);
+  if (r) parts.push(below100(r));
+  return parts.join(' و');
+}
+function decomp(n) { // [thousands, hundreds, tens, units] values, non-zero, high to low
+  const d = digitsOf(n), len = d.length;
+  return d.map((x, i) => x * Math.pow(10, len - 1 - i)).filter(v => v > 0);
+}
+function numForLevel(level, opts = {}) {
+  if (level === 3) {
+    let n = opts.small ? rand(20, 99) : rand(100, 999);
+    if (opts.zeros && n >= 100 && Math.random() < .35) { const d = digitsOf(n); d[pick([1, 2])] = 0; n = Number(d.join('')); }
+    return n;
+  }
+  let n = rand(1000, 9999);
+  if (opts.zeros && Math.random() < .6) { // put a zero in hundreds or tens to train zero handling
+    const d = digitsOf(n); d[pick([1, 2, 3])] = 0; n = Number(d.join(''));
+  }
+  return n;
+}
+
+/* =====================================================================
+   3. PEDAGOGICAL DATA (from the support-phase lessons)
+   ===================================================================== */
+const LEVELS = {
+  3: {
+    label: 'المستوى الثالث', max: 999,
+    goals: [
+      'الجمع شفويا لعددين من رقم واحد، والطرح شفويا حين يكون الفرق محصورا بين 0 و18 (حساب ذهني).',
+      'قراءة وكتابة الأعداد من 0 إلى 999 بالأرقام وبالحروف.',
+      'تمثيل الأعداد (0 إلى 999) باستخدام تمثيلات مختلفة: الخشيبات والحزم، عجلة الأعداد، النقود.',
+      'تحديد منازل الأرقام (الوحدات – العشرات – المئات) وكتابة العدد كتابة مفككة.',
+      'مقارنة الأعداد وترتيبها تصاعديا وتنازليا.',
+      'إنجاز عملية الجمع بالاحتفاظ والطرح بمبادلة.',
+      'حل مسائل تتطلب استخدام استراتيجية الأسئلة الأربعة: وضعيات جمع وطرح.'
+    ],
+    path: 'لبنة جمع 1 • لبنة جمع 2 • لبنة طرح 1 • لبنة طرح 2 (6 أيام لكل لبنة)'
+  },
+  4: {
+    label: 'المستوى الرابع', max: 9999,
+    goals: [
+      'الحساب الذهني: الجمع والطرح وجداول الضرب.',
+      'قراءة وكتابة وتفكيك الأعداد من 0 إلى 9999.',
+      'تمثيل الأعداد بتمثيلات مختلفة: الخشيبات والحزم، عجلة الأعداد، النقود.',
+      'تحديد منازل الأرقام (الوحدات – العشرات – المئات – الآلاف) وقيمة كل رقم.',
+      'مقارنة الأعداد وترتيبها تصاعديا وتنازليا.',
+      'وضع وإنجاز عمليات الجمع والطرح، ووضع وإنجاز عملية ضرب في الأعداد من 0 إلى 99.',
+      'حل مسائل باستخدام استراتيجية الأسئلة الأربعة (جمع، طرح، ضرب).'
+    ],
+    path: 'المسار 1: لبنة جمع (6 أيام) • لبنة طرح (12 يوما) • لبنة ضرب (6 أيام)'
+  }
+};
+
+const FOUR_Q = [
+  { q: 'ما المعلومات المقدمة في المسألة؟', icon: '1️⃣' },
+  { q: 'ما المطلوب منا؟', icon: '2️⃣' },
+  { q: 'ماذا علي أن أفعل لحساب المطلوب؟', icon: '3️⃣' },
+  { q: 'لماذا؟', icon: '4️⃣' }
+];
+
+const PROBLEMS = {
+  3: [
+    { text: 'في مكتبة القسم 135 قصة، وأضاف الأستاذ 42 قصة جديدة. كم أصبح عدد القصص في المكتبة؟', data: 'في المكتبة 135 قصة، وأضاف الأستاذ 42 قصة.', ask: 'حساب عدد القصص التي أصبحت في المكتبة.', op: '+', a: 135, b: 42, sent: 'عدد القصص في المكتبة هو', unit: 'قصة' },
+    { text: 'جمع يوسف 64 حبة زيتون، ثم أكل منها 27 حبة. كم حبة زيتون بقيت عند يوسف؟', data: 'جمع يوسف 64 حبة، وأكل منها 27 حبة.', ask: 'حساب عدد حبات الزيتون الباقية عند يوسف.', op: '-', a: 64, b: 27, sent: 'عدد الحبات الباقية هو', unit: 'حبة' },
+    { text: 'في حافلة 38 راكبا، وفي المحطة صعد 25 راكبا آخرون. كم أصبح عدد الركاب في الحافلة؟', data: 'في الحافلة 38 راكبا، وصعد 25 راكبا.', ask: 'حساب عدد الركاب الذي أصبح في الحافلة.', op: '+', a: 38, b: 25, sent: 'عدد الركاب هو', unit: 'راكبا' },
+    { text: 'لدى فاطمة 250 درهما، اشترت كتابا ثمنه 85 درهما. كم درهما بقي معها؟', data: 'لدى فاطمة 250 درهما، وثمن الكتاب 85 درهما.', ask: 'حساب المبلغ الذي بقي مع فاطمة.', op: '-', a: 250, b: 85, sent: 'المبلغ الباقي هو', unit: 'درهما' },
+    { text: 'في حقل 326 شجرة زيتون و148 شجرة لوز. كم شجرة في الحقل؟', data: 'في الحقل 326 شجرة زيتون و148 شجرة لوز.', ask: 'حساب العدد الإجمالي للأشجار في الحقل.', op: '+', a: 326, b: 148, sent: 'عدد الأشجار هو', unit: 'شجرة' },
+    { text: 'في صندوق 92 تفاحة، باع التاجر منها 56 تفاحة. كم تفاحة بقيت في الصندوق؟', data: 'في الصندوق 92 تفاحة، وباع التاجر 56 تفاحة.', ask: 'حساب عدد التفاحات الباقية في الصندوق.', op: '-', a: 92, b: 56, sent: 'عدد التفاحات الباقية هو', unit: 'تفاحة' },
+    { text: 'مشى أحمد في الصباح 145 مترا، وفي المساء 238 مترا. ما المسافة التي مشاها أحمد؟', data: 'مشى أحمد 145 مترا صباحا و238 مترا مساء.', ask: 'حساب المسافة الكلية التي مشاها أحمد.', op: '+', a: 145, b: 238, sent: 'المسافة الكلية هي', unit: 'مترا' },
+    { text: 'في المدرسة 412 تلميذا، خرج منهم 135 تلميذا في رحلة. كم تلميذا بقي في المدرسة؟', data: 'في المدرسة 412 تلميذا، وخرج 135 تلميذا في رحلة.', ask: 'حساب عدد التلاميذ الذين بقوا في المدرسة.', op: '-', a: 412, b: 135, sent: 'عدد التلاميذ الباقين هو', unit: 'تلميذا' }
+  ],
+  4: [
+    { text: 'في خزانة المدرسة 1250 كتابا، ووصلتها 375 كتابا جديدا. كم أصبح عدد الكتب؟', data: 'في الخزانة 1250 كتابا، ووصلتها 375 كتابا.', ask: 'حساب عدد الكتب الذي أصبح في الخزانة.', op: '+', a: 1250, b: 375, sent: 'عدد الكتب هو', unit: 'كتابا' },
+    { text: 'لدى فلاح 2340 كيلوغراما من القمح، باع منها 1185 كيلوغراما. كم كيلوغراما بقي عنده؟', data: 'لدى الفلاح 2340 كيلوغراما، وباع 1185 كيلوغراما.', ask: 'حساب كمية القمح التي بقيت عند الفلاح.', op: '-', a: 2340, b: 1185, sent: 'كمية القمح الباقية هي', unit: 'كيلوغراما' },
+    { text: 'زرع البستاني 4 صفوف من الأشجار، في كل صف 23 شجرة. كم شجرة زرع البستاني؟', data: 'زرع البستاني 4 صفوف، في كل صف 23 شجرة.', ask: 'حساب عدد الأشجار التي زرعها البستاني.', op: 'x', a: 23, b: 4, sent: 'عدد الأشجار هو', unit: 'شجرة' },
+    { text: 'اشترت أمينة 6 علب أقلام، في كل علبة 12 قلما. كم قلما اشترت أمينة؟', data: 'اشترت أمينة 6 علب، في كل علبة 12 قلما.', ask: 'حساب عدد الأقلام التي اشترتها أمينة.', op: 'x', a: 12, b: 6, sent: 'عدد الأقلام هو', unit: 'قلما' },
+    { text: 'ثمن دراجة 1450 درهما، وثمن خوذة 235 درهما. كم يدفع من يشتريهما معا؟', data: 'ثمن الدراجة 1450 درهما، وثمن الخوذة 235 درهما.', ask: 'حساب ثمن الدراجة والخوذة معا.', op: '+', a: 1450, b: 235, sent: 'الثمن الإجمالي هو', unit: 'درهما' },
+    { text: 'كان في خزان 5000 لتر من الماء، استُهلك منها 2365 لترا. كم لترا بقي في الخزان؟', data: 'في الخزان 5000 لتر، واستُهلك منها 2365 لترا.', ask: 'حساب كمية الماء الباقية في الخزان.', op: '-', a: 5000, b: 2365, sent: 'كمية الماء الباقية هي', unit: 'لترا' },
+    { text: 'استأجرت المدرسة 3 حافلات للرحلة، في كل حافلة 45 مقعدا. كم مقعدا في الحافلات الثلاث؟', data: 'استأجرت المدرسة 3 حافلات، في كل حافلة 45 مقعدا.', ask: 'حساب عدد المقاعد في الحافلات الثلاث.', op: 'x', a: 45, b: 3, sent: 'عدد المقاعد هو', unit: 'مقعدا' },
+    { text: 'جمعت تعاونية 2618 بيضة يوم السبت، و1394 بيضة يوم الأحد. كم بيضة جمعت في اليومين؟', data: 'جمعت التعاونية 2618 بيضة يوم السبت و1394 بيضة يوم الأحد.', ask: 'حساب عدد البيض المجموع في اليومين.', op: '+', a: 2618, b: 1394, sent: 'عدد البيض هو', unit: 'بيضة' }
+  ]
+};
+const OP_SYM = { '+': '+', '-': '−', 'x': '×' };
+const OP_NAME = { '+': 'الجمع', '-': 'الطرح', 'x': 'الضرب' };
+const OP_WHY = {
+  '+': 'لأن الكمية تزداد: نضيف كمية إلى أخرى أو نجمعهما.',
+  '-': 'لأن الكمية تنقص: نأخذ منها جزءا ونبحث عن الباقي.',
+  'x': 'لأننا نكرر نفس العدد عدة مرات (جمع متكرر).'
+};
+const calc = (a, op, b) => op === '+' ? a + b : op === '-' ? a - b : a * b;
+
+/* =====================================================================
+   3b. EXERCISE BANK — generated variety + anti-repetition memory
+   ===================================================================== */
+const RECENT_KEY = 'guigou_math_recent';
+function recentGet(k) { try { return (JSON.parse(localStorage.getItem(RECENT_KEY) || '{}')[k]) || []; } catch (e) { return []; } }
+function recentAdd(k, ids, keep) { try { const all = JSON.parse(localStorage.getItem(RECENT_KEY) || '{}'); all[k] = [...ids, ...(all[k] || [])].slice(0, keep); localStorage.setItem(RECENT_KEY, JSON.stringify(all)); } catch (e) {} }
+// n elements of pool, those not seen recently on this device first
+function pickFresh(key, pool, n, idOf = x => x) {
+  const rec = new Set(recentGet(key));
+  const fresh = shuffle(pool.filter(p => !rec.has(idOf(p)))), old = shuffle(pool.filter(p => rec.has(idOf(p))));
+  const out = [...fresh, ...old].slice(0, n);
+  recentAdd(key, out.map(idOf), Math.max(n, Math.floor(pool.length * 0.6)));
+  return out;
+}
+// n kinds: every kind at least once when possible, the rest at random, in random order; least-recent kinds first
+function mixKinds(key, kinds, n) {
+  const first = pickFresh('kinds_' + key, kinds, Math.min(n, kinds.length));
+  while (first.length < n) first.push(pick(kinds));
+  return shuffle(first);
+}
+// generate n distinct items with a generator (distinct by .key)
+function distinct(n, gen, tries = 200) {
+  const out = [], seen = new Set();
+  for (let t = 0; out.length < n && t < tries; t++) { const it = gen(out.length); if (!seen.has(it.key)) { seen.add(it.key); out.push(it); } }
+  while (out.length < n) out.push(gen(out.length));
+  return out;
+}
+
+/* ---- mental math kinds ---- */
+const MENTAL_KINDS = {
+  3: ['add1', 'sub18', 'comp10', 'plus10', 'minus10', 'double', 'tens', 'addTo20'],
+  4: ['add1', 'sub18', 'mul', 'mul2', 'missFactor', 'x10', 'plus100', 'comp100', 'tens']
+};
+function mentalItem(kind) {
+  let a, b, e, ans;
+  switch (kind) {
+    case 'add1': a = rand(2, 9); b = rand(2, 9); e = `${a} + ${b} = ?`; ans = a + b; break;
+    case 'sub18': a = rand(11, 18); b = rand(Math.max(2, a - 9), 9); e = `${a} − ${b} = ?`; ans = a - b; break;
+    case 'comp10': a = rand(1, 9); e = `${a} + ? = 10`; ans = 10 - a; break;
+    case 'plus10': a = rand(12, 89); e = `${a} + 10 = ?`; ans = a + 10; break;
+    case 'minus10': a = rand(21, 99); e = `${a} − 10 = ?`; ans = a - 10; break;
+    case 'double': a = rand(3, 9); e = `${a} + ${a} = ?`; ans = 2 * a; break;
+    case 'tens': a = rand(1, 7) * 10; b = rand(1, (90 - a) / 10) * 10; if (Math.random() < .5) { e = `${a + b} − ${b} = ?`; ans = a; } else { e = `${a} + ${b} = ?`; ans = a + b; } break;
+    case 'addTo20': a = rand(11, 17); b = rand(1, 19 - a); e = `${a} + ${b} = ?`; ans = a + b; break;
+    case 'mul': case 'mul2': a = rand(2, 9); b = rand(2, 10); e = `${a} × ${b} = ?`; ans = a * b; break;
+    case 'missFactor': a = rand(2, 9); b = rand(2, 9); e = `${a} × ? = ${a * b}`; ans = b; break;
+    case 'x10': a = rand(2, 99); e = `${a} × 10 = ?`; ans = a * 10; break;
+    case 'plus100': a = rand(100, 899); e = `${a} + 100 = ?`; ans = a + 100; break;
+    case 'comp100': a = rand(1, 9) * 10; e = `${a} + ? = 100`; ans = 100 - a; break;
+  }
+  return { kind, expr: e, ans, full: e.replace('?', ans), key: e };
+}
+
+/* ---- problem bank: situations x names x objects x numbers ---- */
+const NAMES = [['يوسف', 'm'], ['فاطمة', 'f'], ['أمين', 'm'], ['سلمى', 'f'], ['عمر', 'm'], ['هند', 'f'], ['ياسين', 'm'], ['مريم', 'f'], ['إدريس', 'm'], ['خديجة', 'f'], ['حمزة', 'm'], ['نور', 'f'], ['أيوب', 'm'], ['زينب', 'f'], ['المهدي', 'm'], ['سناء', 'f'], ['آدم', 'm'], ['إيمان', 'f'], ['بلال', 'm'], ['رانية', 'f']];
+// [form after a number / after «كم» (accusative), definite plural]
+const ITEMS = [['قصة', 'القصص'], ['كتابا', 'الكتب'], ['تفاحة', 'التفاحات'], ['بيضة', 'البيض'], ['قلما', 'الأقلام'], ['كرة', 'الكرات'], ['زهرة', 'الأزهار'], ['طابعا', 'الطوابع'], ['خشيبة', 'الخشيبات'], ['برتقالة', 'البرتقالات'], ['حبة زيتون', 'حبات الزيتون'], ['دفترا', 'الدفاتر'], ['بطاقة', 'البطاقات'], ['قطعة حلوى', 'قطع الحلوى'], ['حبة تمر', 'حبات التمر'], ['لعبة', 'اللعب']];
+const THINGS2 = [['دراجة', 'خوذة'], ['حقيبة', 'محفظة'], ['معطف', 'حذاء'], ['مذياع', 'ساعة'], ['طاولة', 'كرسي'], ['قميص', 'سروال']];
+const THINGS1 = ['كتابا', 'حذاء', 'قميصا', 'لعبة', 'ساعة', 'حقيبة'];
+const UNIT_THINGS = [['الكراسة الواحدة', 'كراسات'], ['القلم الواحد', 'أقلام'], ['الكتاب الواحد', 'كتب'], ['التذكرة الواحدة', 'تذاكر'], ['العلبة الواحدة', 'علب']];
+function problemNumbers(level, op) {
+  if (op === 'x') return [rand(12, 49), rand(2, 9)];
+  if (op === '+') {
+    if (level === 3) { const a = rand(25, 650); return [a, rand(12, Math.min(320, 999 - a))]; }
+    const a = rand(1050, 6900); return [a, rand(120, Math.min(2900, 9999 - a))];
+  }
+  if (level === 3) { const a = rand(60, 950); return [a, rand(12, a - 10)]; }
+  const a = rand(1500, 9800); return [a, rand(300, a - 150)];
+}
+// each template: id, op, minimum level, build(ctx) -> text/data/ask/sent/unit (+ optional why)
+const PROBLEM_TEMPLATES = [
+  { id: 'add-gain', op: '+', f: c => ({ text: `لدى ${c.N} ${c.a} ${c.sg}، ثم ${c.v('حصل', 'حصلت')} على ${c.b} ${c.sg} أيضا. كم أصبح عدد ${c.pl} لدى ${c.N}؟`, data: `لدى ${c.N} ${c.a} ${c.sg}، و${c.v('حصل', 'حصلت')} على ${c.b} ${c.sg}.`, ask: `حساب عدد ${c.pl} الذي أصبح لدى ${c.N}.`, sent: `عدد ${c.pl} لدى ${c.N} هو`, unit: c.sg }) },
+  { id: 'add-days', op: '+', f: c => ({ text: `${c.v('جمع', 'جمعت')} ${c.N} يوم السبت ${c.a} ${c.sg}، ويوم الأحد ${c.b} ${c.sg}. كم ${c.sg} ${c.v('جمع', 'جمعت')} في اليومين؟`, data: `${c.v('جمع', 'جمعت')} ${c.N} ${c.a} ${c.sg} يوم السبت و${c.b} ${c.sg} يوم الأحد.`, ask: `حساب مجموع ${c.pl} في اليومين.`, sent: `مجموع ${c.pl} هو`, unit: c.sg }) },
+  { id: 'add-store', op: '+', f: c => ({ text: `في مخزن الدكان ${c.a} ${c.sg}، ثم وصل إليه ${c.b} ${c.sg}. كم أصبح عدد ${c.pl} في المخزن؟`, data: `في المخزن ${c.a} ${c.sg}، ووصل إليه ${c.b} ${c.sg}.`, ask: `حساب عدد ${c.pl} الذي أصبح في المخزن.`, sent: `عدد ${c.pl} في المخزن هو`, unit: c.sg }) },
+  { id: 'add-two', op: '+', f: c => ({ text: `لدى ${c.N} ${c.a} ${c.sg}، ولدى ${c.N2} ${c.b} ${c.sg}. كم ${c.sg} لديهما معا؟`, data: `لدى ${c.N} ${c.a} ${c.sg}، ولدى ${c.N2} ${c.b} ${c.sg}.`, ask: `حساب مجموع ${c.pl} لدى ${c.N} و${c.N2}.`, sent: `مجموع ${c.pl} لديهما هو`, unit: c.sg }) },
+  { id: 'add-price', op: '+', f: c => ({ text: `ثمن ${c.t2[0]} ${c.a} درهما، وثمن ${c.t2[1]} ${c.b} درهما. كم درهما ${c.v('يدفع', 'تدفع')} ${c.N} إذا ${c.v('اشتراهما', 'اشترتهما')} معا؟`, data: `ثمن ${c.t2[0]} ${c.a} درهما، وثمن ${c.t2[1]} ${c.b} درهما.`, ask: `حساب ثمن ${c.t2[0]} و${c.t2[1]} معا.`, sent: `المبلغ الذي ${c.v('يدفعه', 'تدفعه')} ${c.N} هو`, unit: 'درهما' }) },
+  { id: 'sub-give', op: '-', f: c => ({ text: `لدى ${c.N} ${c.a} ${c.sg}، ${c.v('أعطى', 'أعطت')} منها ${c.b} ${c.sg} ${c.v('لصديقه', 'لصديقتها')}. كم بقي لدى ${c.N} من ${c.pl}؟`, data: `لدى ${c.N} ${c.a} ${c.sg}، و${c.v('أعطى', 'أعطت')} ${c.b} ${c.sg}.`, ask: `حساب ما بقي لدى ${c.N} من ${c.pl}.`, sent: `ما بقي لدى ${c.N} هو`, unit: c.sg }) },
+  { id: 'sub-sell', op: '-', f: c => ({ text: `في مخزن الدكان ${c.a} ${c.sg}، باع التاجر منها ${c.b} ${c.sg}. كم بقي في المخزن من ${c.pl}؟`, data: `في المخزن ${c.a} ${c.sg}، وباع التاجر ${c.b} ${c.sg}.`, ask: `حساب ما بقي في المخزن من ${c.pl}.`, sent: `ما بقي في المخزن هو`, unit: c.sg }) },
+  { id: 'sub-money', op: '-', f: c => ({ text: `لدى ${c.N} ${c.a} درهما، ${c.v('اشترى', 'اشترت')} ${c.t1} بـ ${c.b} درهما. كم درهما بقي ${c.v('معه', 'معها')}؟`, data: `لدى ${c.N} ${c.a} درهما، والثمن ${c.b} درهما.`, ask: `حساب المبلغ الذي بقي مع ${c.N}.`, sent: `المبلغ الباقي هو`, unit: 'درهما' }) },
+  { id: 'sub-compare', op: '-', f: c => ({ text: `لدى ${c.N} ${c.a} ${c.sg}، ولدى ${c.N2} ${c.b} ${c.sg}. بكم يزيد عدد ${c.pl} لدى ${c.N} على عددها لدى ${c.N2}؟`, data: `لدى ${c.N} ${c.a} ${c.sg}، ولدى ${c.N2} ${c.b} ${c.sg}.`, ask: `حساب الفرق بين ما لدى ${c.N} وما لدى ${c.N2}.`, sent: `الفرق هو`, unit: c.sg, why: 'لأننا نبحث عن الفرق بين عددين.' }) },
+  { id: 'sub-road', op: '-', f: c => ({ text: `طول طريق ${c.a} مترا، ${c.v('قطع', 'قطعت')} ${c.N} منه ${c.b} مترا. كم مترا بقي ${c.v('له', 'لها')} ليصل؟`, data: `طول الطريق ${c.a} مترا، و${c.v('قطع', 'قطعت')} ${c.N} ${c.b} مترا.`, ask: `حساب المسافة الباقية أمام ${c.N}.`, sent: `المسافة الباقية هي`, unit: 'مترا' }) },
+  { id: 'mul-boxes', op: 'x', f: c => ({ text: `في مخزن الدكان ${c.b} صناديق، في كل صندوق ${c.a} ${c.sg}. كم ${c.sg} في الصناديق كلها؟`, data: `${c.b} صناديق، في كل صندوق ${c.a} ${c.sg}.`, ask: `حساب عدد ${c.pl} في الصناديق كلها.`, sent: `عدد ${c.pl} هو`, unit: c.sg }) },
+  { id: 'mul-rows', op: 'x', f: c => ({ text: `زرع البستاني في حديقة المدرسة ${c.b} صفوف من الأشجار، في كل صف ${c.a} شجرة. كم شجرة زرع البستاني؟`, data: `${c.b} صفوف، في كل صف ${c.a} شجرة.`, ask: 'حساب عدد الأشجار التي زرعها البستاني.', sent: 'عدد الأشجار هو', unit: 'شجرة' }) },
+  { id: 'mul-price', op: 'x', f: c => ({ text: `ثمن ${c.ut[0]} ${c.a} درهما. ${c.v('اشترى', 'اشترت')} ${c.N} ${c.b} ${c.ut[1]}. كم درهما ${c.v('دفع', 'دفعت')}؟`, data: `ثمن ${c.ut[0]} ${c.a} درهما، و${c.v('اشترى', 'اشترت')} ${c.N} ${c.b} ${c.ut[1]}.`, ask: `حساب المبلغ الذي ${c.v('دفعه', 'دفعته')} ${c.N}.`, sent: 'المبلغ المدفوع هو', unit: 'درهما' }) },
+  { id: 'mul-pages', op: 'x', f: c => ({ text: `${c.v('يقرأ', 'تقرأ')} ${c.N} ${c.a} صفحة كل يوم. كم صفحة ${c.v('يقرأ', 'تقرأ')} في ${c.b} أيام؟`, data: `${c.v('يقرأ', 'تقرأ')} ${c.N} ${c.a} صفحة كل يوم، لمدة ${c.b} أيام.`, ask: `حساب عدد الصفحات التي ${c.v('يقرؤها', 'تقرؤها')} ${c.N} في ${c.b} أيام.`, sent: 'عدد الصفحات هو', unit: 'صفحة' }) },
+  { id: 'mul-bus', op: 'x', f: c => ({ text: `في كل حافلة ${c.a} مقعدا. استأجرت المدرسة ${c.b} حافلات للرحلة. كم مقعدا في الحافلات كلها؟`, data: `في كل حافلة ${c.a} مقعدا، وعدد الحافلات ${c.b}.`, ask: 'حساب عدد المقاعد في الحافلات كلها.', sent: 'عدد المقاعد هو', unit: 'مقعدا' }) }
+];
+function makeProblem(level, tpl) {
+  const [a, b] = problemNumbers(level, tpl.op);
+  const [n1, n2] = shuffle(NAMES);
+  const it = pick(ITEMS);
+  const c = {
+    a, b, N: n1[0], N2: n2[0], v: (m, f) => n1[1] === 'f' ? f : m,
+    sg: it[0], pl: it[1], t2: pick(THINGS2), t1: pick(THINGS1), ut: pick(UNIT_THINGS)
+  };
+  const p = tpl.f(c);
+  return { ...p, id: tpl.id, op: tpl.op, a, b, ans: calc(a, tpl.op, b), why: p.why || OP_WHY[tpl.op] };
+}
+function problemTemplates(level) { return PROBLEM_TEMPLATES.filter(t => level === 4 || t.op !== 'x'); }
+
+/* =====================================================================
+   4. VISUAL PIECES (SVG drawn in code: sticks, bundles, notes, coins, wheel)
+   ===================================================================== */
+function svgStick() {
+  return `<svg width="10" height="58" viewBox="0 0 10 58" aria-label="خشيبة"><rect x="3" y="2" width="4" height="54" rx="2" fill="#d4a056" stroke="#8a5a2b" stroke-width=".8"/></svg>`;
+}
+function svgBundle() {
+  let s = '';
+  for (let i = 0; i < 10; i++) s += `<rect x="${1 + i * 2.9}" y="2" width="2.5" height="54" rx="1.2" fill="#d4a056" stroke="#8a5a2b" stroke-width=".5"/>`;
+  return `<svg width="32" height="58" viewBox="0 0 32 58" aria-label="حزمة"><g>${s}</g><rect x="0" y="24" width="32" height="8" rx="2" fill="#dc2626"/></svg>`;
+}
+function svgHundred() {
+  let s = '';
+  for (let i = 0; i < 10; i++) {
+    const x = 2 + i * 6.4;
+    s += `<rect x="${x}" y="2" width="5.6" height="54" rx="1" fill="#e2b06c" stroke="#8a5a2b" stroke-width=".5"/>`;
+  }
+  return `<svg width="68" height="58" viewBox="0 0 68 58" aria-label="حزمة كبيرة (100)">${s}
+    <rect x="0" y="12" width="68" height="6" rx="2" fill="#1d4ed8"/><rect x="0" y="40" width="68" height="6" rx="2" fill="#1d4ed8"/>
+    <rect x="22" y="22" width="24" height="14" rx="4" fill="#fff" stroke="#1d4ed8"/><text x="34" y="33" text-anchor="middle" font-size="10" font-weight="800" fill="#1d4ed8">100</text></svg>`;
+}
+const NOTE_STYLE = { 100: ['#92400e', 'مئات'], 10: ['#15803d', 'عشرات'], 1: ['#1d4ed8', 'وحدات'] };
+function svgMoney(v) {
+  const [c, place] = NOTE_STYLE[v];
+  return `<svg width="104" height="54" viewBox="0 0 104 54" aria-label="ورقة ${v} درهم"><rect x="1" y="1" width="102" height="52" rx="7" fill="${c}"/>
+    <rect x="6" y="6" width="92" height="42" rx="5" fill="none" stroke="#fff" stroke-opacity=".5" stroke-dasharray="3 3"/>
+    <circle cx="80" cy="27" r="14" fill="#fff" fill-opacity=".18"/>
+    <text x="40" y="34" text-anchor="middle" font-size="24" font-weight="900" fill="#fff">${v}</text>
+    <text x="80" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">درهم</text>
+    <text x="80" y="37" text-anchor="middle" font-size="8" font-weight="700" fill="#fff" fill-opacity=".85">${place}</text></svg>`;
+}
+function svgPebble(x, y, s = 1) {
+  const fills = ['#78716c', '#8b7d6b', '#6b7280', '#a1887f'];
+  const f = fills[Math.floor(Math.random() * fills.length)], rot = rand(-35, 35);
+  return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot}) scale(${s})">
+    <ellipse rx="7.5" ry="5.8" fill="${f}" stroke="#44403c" stroke-width="1"/>
+    <ellipse cx="-2.2" cy="-1.8" rx="2.4" ry="1.4" fill="#fff" fill-opacity=".45"/></g>`;
+}
+function svgWheel(n, level) {
+  // Each ring is a place; the number of pebbles in a ring is the digit of that place (no figures shown)
+  const places = level === 4 ? 4 : 3;
+  const d = String(n).padStart(places, '0').split('').map(Number); // high -> low
+  const colors = ['#c7d2fe', '#a7f3d0', '#fde68a', '#fecaca']; // thousands, hundreds, tens, units
+  const names = ['الآلاف', 'المئات', 'العشرات', 'الوحدات'];
+  const offset = 4 - places;
+  const R = [150, 114, 78, 40];
+  const radii = R.slice(offset);
+  let s = '';
+  radii.forEach((r, i) => { s += `<circle cx="160" cy="160" r="${r}" fill="${colors[i + offset]}" stroke="#334155" stroke-width="1.5"/>`; });
+  radii.forEach((r, i) => {
+    const idx = i + offset, k = d[i], inner = radii[i + 1] || 0;
+    if (inner) {
+      const mid = (r + inner) / 2;
+      // pebbles spread over the ring, leaving the bottom free for the place name
+      for (let j = 0; j < k; j++) {
+        const a = (125 + (j + .5) * 290 / k) * Math.PI / 180;
+        s += svgPebble(160 + mid * Math.cos(a), 160 + mid * Math.sin(a));
+      }
+      s += `<text x="160" y="${160 + mid + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">${names[idx]}</text>`;
+    } else {
+      for (let j = 0; j < k; j++) {
+        const row = Math.floor(j / 3), col = j % 3, inRow = Math.min(3, k - row * 3);
+        const x = 160 + (col - (inRow - 1) / 2) * 17, y = 143 + row * 15;
+        s += svgPebble(x, y, .85);
+      }
+      s += `<text x="160" y="190" text-anchor="middle" font-size="9" font-weight="700" fill="#334155">${names[idx]}</text>`;
+    }
+  });
+  const size = R[offset] * 2 + 20, off = 160 - R[offset] - 10;
+  return `<svg width="${Math.min(size, 300)}" height="${Math.min(size, 300)}" viewBox="${off} ${off} ${size} ${size}" aria-label="عجلة الأعداد">${s}</svg>`;
+}
+function wheelExplain(n, level) {
+  const places = level === 4 ? 4 : 3;
+  const d = String(n).padStart(places, '0').split('').map(Number);
+  const names = ['الآلاف', 'المئات', 'العشرات', 'الوحدات'].slice(4 - places);
+  const parts = d.map((k, i) => `${names[i]}: ${k === 0 ? 'حلقة فارغة' : k === 1 ? 'حصاة واحدة' : k === 2 ? 'حصاتان' : k + ' حصى'} ← ${L(k * Math.pow(10, places - 1 - i))}`);
+  return parts.join(' • ') + `<br>${L(decomp(n).join(' + ') + ' = ' + n)}`;
+}
+function piecesForSticks(n) {
+  const h = Math.floor(n / 100), t = Math.floor(n / 10) % 10, u = n % 10;
+  const arr = [];
+  for (let i = 0; i < h; i++) arr.push(svgHundred());
+  for (let i = 0; i < t; i++) arr.push(svgBundle());
+  for (let i = 0; i < u; i++) arr.push(svgStick());
+  return arr;
+}
+const MONEY_NOTES = [100, 10, 1];
+function notesPhrase(n) { // "3 أوراق من فئة 100 وورقة واحدة من فئة 10 ..."
+  const cnt = k => k === 1 ? 'ورقة واحدة' : k === 2 ? 'ورقتان' : k + ' أوراق';
+  return [[Math.floor(n / 100), 100], [Math.floor(n / 10) % 10, 10], [n % 10, 1]].filter(x => x[0]).map(([k, v]) => `${cnt(k)} من فئة ${v}`).join(' و');
+}
+function moneyAmount() { return rand(1, 6) * 100 + rand(0, 7) * 10 + rand(1, 8); }
+function moneySet() { // notes of 100, 10 and 1 only (hundreds, tens, units)
+  const n = moneyAmount(), list = [];
+  for (let i = 0; i < Math.floor(n / 100); i++) list.push(100);
+  for (let i = 0; i < Math.floor(n / 10) % 10; i++) list.push(10);
+  for (let i = 0; i < n % 10; i++) list.push(1);
+  return list;
+}
+
+/* =====================================================================
+   5. STATE & STORAGE
+   ===================================================================== */
+const STORE_KEY = 'guigou_math_soutien_v1';
+const PWD_KEY = 'guigou_math_pwd';
+const DEFAULT_PWD = 'Guigou2026';
+const RECOVERY_CODE = 'RB-MBPA-N9KC'; // رمز استرجاع القن الأصلي — خاص بالأستاذ
+/* --- Online sync (Google Sheets via Apps Script) ---
+   CLOUD_URL_DEFAULT: paste the Apps Script web-app link here so every computer sends without setup.
+   CLOUD_SECRET must equal SECRET in the Apps Script code. */
+const CLOUD_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbxVsiZrBsAtmVZ6xEO9faPcfVioUar60FlxpD_SkxiknNNPlhQwKhu4MF0p2nQqM64e5A/exec';
+const CLOUD_SECRET = 'GG-b1e171003b718a51';
+const CLOUD_KEY = 'guigou_math_cloud_url', QUEUE_KEY = 'guigou_math_queue', SYNC_KEY = 'guigou_math_lastsync';
+let memQueue = {}, flushing = false;
+function cloudUrl() { try { return (localStorage.getItem(CLOUD_KEY) || CLOUD_URL_DEFAULT).trim(); } catch (e) { return CLOUD_URL_DEFAULT; } }
+function loadQueue() { try { return JSON.parse(localStorage.getItem(QUEUE_KEY) || '{}'); } catch (e) { return memQueue; } }
+function saveQueue(q) { memQueue = q; try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch (e) {} }
+function enqueue(rec) { const q = loadQueue(); q[rec.id] = rec; saveQueue(q); }
+function setSync(msg) { try { localStorage.setItem(SYNC_KEY, msg); } catch (e) {} }
+function getSync() { try { return localStorage.getItem(SYNC_KEY) || ''; } catch (e) { return ''; } }
+// JSONP: loads the answer as a <script>; works where the browser blocks fetch()
+let jsonpN = 0;
+function jsonp(url, params, timeout = 15000) {
+  return new Promise((resolve, reject) => {
+    const cb = '__gg_cb' + (++jsonpN) + '_' + Date.now();
+    const s = document.createElement('script');
+    const t = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, timeout);
+    function cleanup() { clearTimeout(t); try { delete window[cb]; } catch (e) { window[cb] = undefined; } s.remove(); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    s.onerror = () => { cleanup(); reject(new Error('blocked')); };
+    const q = Object.entries({ ...params, callback: cb }).map(([k, v]) => k + '=' + encodeURIComponent(v)).join('&');
+    s.src = url + (url.includes('?') ? '&' : '?') + q;
+    document.head.appendChild(s);
+  });
+}
+let lastNetError = '';
+async function postRecords(url, records) {
+  const body = JSON.stringify({ secret: CLOUD_SECRET, records });
+  // 0) opened from the Google link (QR code): talk to the script directly
+  if (window.google && google.script && google.script.run) {
+    try {
+      const j = await new Promise((res, rej) => google.script.run.withSuccessHandler(res).withFailureHandler(rej).submit({ secret: CLOUD_SECRET, records }));
+      if (j && j.ok) return 'ok';
+      if (j && j.error === 'secret') return 'secret';
+    } catch (e) { lastNetError = 'gs: ' + (e && e.message); }
+  }
+  try { // 1) normal request: the answer can be read
+    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body, redirect: 'follow' });
+    const j = await r.json();
+    if (j.ok) return 'ok';
+    if (j.error === 'secret') return 'secret';
+  } catch (e) { lastNetError = 'fetch: ' + e.message; }
+  // 2) fallback: one record per request through a script tag (JSONP)
+  try {
+    for (const rec of records) {
+      const j = await jsonp(url, { p: JSON.stringify({ secret: CLOUD_SECRET, records: [rec] }) });
+      if (!j || !j.ok) return j && j.error === 'secret' ? 'secret' : 'error';
+    }
+    return 'ok';
+  } catch (e) { lastNetError += ' | jsonp: ' + e.message; }
+  // 3) last resort: send without reading the answer
+  try { await fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body }); return 'sent'; }
+  catch (e) { lastNetError += ' | no-cors: ' + e.message; return 'offline'; }
+}
+async function flushQueue(manual) {
+  const url = cloudUrl();
+  if (!url) { if (manual) uiAlert('لم يُحفظ رابط الجدول بعد.'); renderCloudStatus(); return; }
+  if (flushing) return;
+  const q = loadQueue(), recs = Object.values(q);
+  if (!recs.length) { if (manual) uiAlert('لا توجد نتائج في انتظار الإرسال.'); renderCloudStatus(); return; }
+  flushing = true;
+  const res = await postRecords(url, recs);
+  flushing = false;
+  if (res === 'ok' || res === 'sent') {
+    const now = loadQueue();
+    recs.forEach(r => { if (now[r.id] && JSON.stringify(now[r.id]) === JSON.stringify(r)) delete now[r.id]; });
+    saveQueue(now);
+    setSync(new Date().toLocaleString('ar-MA') + (res === 'sent' ? ' (أُرسلت دون تأكيد)' : ''));
+  }
+  if (manual) uiAlert(res === 'ok' ? `تم إرسال ${recs.length} نتيجة إلى الجدول ✓` : res === 'sent' ? 'أُرسلت النتائج، لكن تعذّر قراءة تأكيد الجدول. تحقق من الجدول.' : res === 'secret' ? 'الرمز السري في السكريبت لا يطابق التطبيق.' : res === 'offline' ? (navigator.onLine === false ? 'لا يوجد اتصال بالإنترنت الآن. ستُرسل النتائج لاحقا.' : 'المتصفح منع الاتصال بجدول Google رغم وجود الإنترنت. افتح الملف مباشرة في Chrome أو Edge (نقر مزدوج على الملف)، لا داخل نافذة معاينة. النتائج محفوظة وستُرسل لاحقا. [' + lastNetError + ']') : 'وقع خطأ في الجدول. تحقق من نشر السكريبت.');
+  renderCloudStatus(res);
+}
+function renderCloudStatus(res) {
+  const pending = Object.keys(loadQueue()).length, url = cloudUrl();
+  const el = document.getElementById('cloud-status');
+  if (el) el.innerHTML = !url ? '<span style="color:var(--danger)">⚪ غير مربوط</span>'
+    : `${pending ? `<span style="color:#b45309">⏳ في الانتظار: ${pending}</span>` : '<span style="color:var(--success)">🟢 كل النتائج أُرسلت</span>'} <span style="color:var(--muted);font-weight:600">• آخر إرسال: ${getSync() || '—'}</span>`;
+  const inp = document.getElementById('cloud-url'); if (inp && !inp.value) inp.value = url;
+  const rs = document.getElementById('res-sync');
+  if (rs && state.sessionId) {
+    const mine = loadQueue()[state.sessionId];
+    rs.textContent = !url ? 'نتيجتك محفوظة على هذا الجهاز في سجل الأستاذ.'
+      : mine ? 'نتيجتك محفوظة، وستُرسل إلى الأستاذ عند توفر الإنترنت.' : 'تم إرسال نتيجتك إلى الأستاذ ✓';
+  }
+}
+function saveCloudUrl() {
+  const v = document.getElementById('cloud-url').value.trim();
+  if (v && !/^https:\/\/script\.google(usercontent)?\.com\//.test(v)) return uiAlert('الرابط يجب أن يبدأ بـ https://script.google.com/');
+  try { localStorage.setItem(CLOUD_KEY, v); } catch (e) {}
+  renderCloudStatus(); uiAlert(v ? 'تم حفظ الرابط على هذا الجهاز.' : 'تم حذف الرابط.');
+  if (v) flushQueue();
+}
+async function testCloud() {
+  const url = document.getElementById('cloud-url').value.trim() || cloudUrl();
+  if (!url) return uiAlert('ألصق رابط السكريبت أولا.');
+  let j = null, err = '';
+  try { const r = await fetch(url + (url.includes('?') ? '&' : '?') + 'secret=' + encodeURIComponent(CLOUD_SECRET)); j = await r.json(); }
+  catch (e) { err = 'fetch: ' + e.message; try { j = await jsonp(url, { secret: CLOUD_SECRET }); } catch (e2) { err += ' | jsonp: ' + e2.message; } }
+  if (j) uiAlert(j.secretOk ? 'الربط يعمل والرمز السري صحيح ✓' : 'الرابط يعمل، لكن الرمز السري لا يطابق.');
+  else uiAlert('تعذّر الوصول إلى جدول Google من هذه الصفحة. إن كان الإنترنت متوفرا، فافتح الملف مباشرة في Chrome أو Edge (نقر مزدوج على الملف) لا داخل نافذة معاينة. [' + err + ' — ' + location.protocol + ']');
+}
+function pushAllLocal() {
+  const all = loadAll(); if (!all.length) return uiAlert('السجل المحلي فارغ.');
+  const q = loadQueue(); all.forEach(r => { q[r.id] = r; }); saveQueue(q);
+  flushQueue(true);
+}
+window.addEventListener('online', () => flushQueue());
+setInterval(() => flushQueue(), 60000);
+setTimeout(() => flushQueue(), 1500);
+const state = {
+  student: { name: '', group: '' }, level: null, sessionId: null, startedAt: null,
+  results: {}, run: null, lastAct: null
+};
+function loadAll() { try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch (e) { return []; } }
+function saveAll(arr) { try { localStorage.setItem(STORE_KEY, JSON.stringify(arr)); } catch (e) {} }
+function getPwd() { try { return localStorage.getItem(PWD_KEY) || DEFAULT_PWD; } catch (e) { return DEFAULT_PWD; } }
+
+function totalScore() { return Object.values(state.results).reduce((s, r) => s + r.score, 0); }
+function maxTotal() { return ACTIVITIES.reduce((s, a) => s + a.count * a.pts, 0); }
+
+function saveSession() {
+  if (!state.sessionId) return;
+  const all = loadAll();
+  const score = totalScore(), max = maxTotal();
+  const doneMax = Object.values(state.results).reduce((s, r) => s + r.max, 0);
+  const rec = {
+    id: state.sessionId, name: state.student.name, group: state.student.group, level: state.level,
+    date: state.startedAt, updated: new Date().toLocaleString('ar-MA'),
+    score, grade20: Math.round(score / max * 200) / 10,
+    pct: doneMax ? Math.round(score / doneMax * 100) : 0,
+    done: Object.keys(state.results).length,
+    acts: Object.fromEntries(Object.entries(state.results).map(([k, r]) => [k, Math.round(r.score / r.max * 100)]))
+  };
+  const i = all.findIndex(r => r.id === rec.id);
+  if (i >= 0) all[i] = rec; else all.unshift(rec);
+  saveAll(all);
+  enqueue(rec); flushQueue();
+}
+
+/* =====================================================================
+   6. NAVIGATION
+   ===================================================================== */
+function showScreen(id) {
+  sound.click();
+  if (state.run && state.run.timer) { clearInterval(state.run.timer); state.run.timer = null; }
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function pickLevel(l) {
+  sound.click(); state.level = l; $('login-err').style.display = 'none';
+  document.querySelectorAll('.level-card').forEach(c => c.classList.toggle('active', Number(c.dataset.level) === l));
+}
+function pickGroup(el, g) {
+  sound.click(); $('in-group').value = g;
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === el));
+}
+function loginError(msg) { const e = $('login-err'); e.textContent = msg; e.style.display = 'block'; sound.ko(); }
+['in-name', 'in-group'].forEach(id => $(id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doLogin(); } }));
+function doLogin() {
+  const name = $('in-name').value.trim(), group = $('in-group').value.trim();
+  if (!name) return loginError('اكتب اسمك أولا.');
+  if (!state.level) return loginError('اختر المستوى الدراسي (3 أو 4).');
+  if (!group) return loginError('اكتب الفوج أو اختره.');
+  $('login-err').style.display = 'none';
+  sound.ok();
+  state.student = { name, group };
+  state.sessionId = 'S' + Date.now();
+  state.startedAt = new Date().toLocaleString('ar-MA');
+  state.results = {};
+  $('intro-name').textContent = name;
+  $('intro-level').textContent = LEVELS[state.level].label + ' — ' + group;
+  $('intro-goals').innerHTML = LEVELS[state.level].goals.map(g => `<li>${g}</li>`).join('');
+  showScreen('screen-intro');
+}
+function classLabel() { return `${LEVELS[state.level].label} — ${state.student.group}`; }
+function showMenu() {
+  $('menu-name').textContent = state.student.name;
+  $('menu-class').textContent = classLabel();
+  $('menu-score').textContent = totalScore();
+  $('btn-finish').style.display = Object.keys(state.results).length ? 'inline-flex' : 'none';
+  $('games-grid').innerHTML = ACTIVITIES.map((a, i) => {
+    const r = state.results[a.id];
+    return `<div class="game-card ${r ? 'done' : ''}" onclick="openActivity('${a.id}')">
+      <div><div class="gc-head"><div class="gc-icon" style="background:${a.bg};color:${a.fg}">${a.icon}</div>
+      <div><div class="gc-title">${i + 1}. ${a.title}</div><span class="badge">${a.count} ${a.count > 10 ? 'سؤالا' : 'أسئلة'}</span></div></div>
+      <p class="gc-desc">${a.desc[state.level]}</p></div>
+      <div class="gc-foot"><span>${r ? `✅ ${r.score} / ${r.max} نقطة` : 'لم ينجز بعد'}</span><span>${r ? 'أعيد ←' : 'ابدأ ←'}</span></div></div>`;
+  }).join('');
+  showScreen('screen-menu');
+}
+function openDrawer() { sound.click(); renderDrawer(state.level || 3); $('drawer-overlay').style.display = 'block'; $('drawer').classList.add('open'); }
+function closeDrawer() { $('drawer-overlay').style.display = 'none'; $('drawer').classList.remove('open'); }
+function leaveDashboard() {
+  $('t-login').style.display = 'block'; $('t-panel').style.display = 'none'; $('t-pwd').value = '';
+  if (state.sessionId) showMenu(); else showScreen('screen-welcome');
+}
+
+/* =====================================================================
+   7. ACTIVITY ENGINE
+   ===================================================================== */
+function openActivity(id) {
+  const a = ACT[id];
+  state.lastAct = id;
+  state.run = { actId: id, items: a.build(state.level), idx: 0, score: 0, max: 0, correct: 0, wrong: 0, locked: false, timer: null };
+  state.run.max = state.run.items.reduce((s, it) => s + (it.pts || a.pts), 0);
+  $('rem-icon').innerHTML = a.icon; $('rem-icon').style.background = a.bg; $('rem-icon').style.color = a.fg;
+  $('rem-title').textContent = a.title;
+  $('rem-body').innerHTML = a.reminder(state.level);
+  showScreen('screen-reminder');
+}
+function startRun() {
+  const r = state.run;
+  showScreen('screen-play');
+  if (r.resume && r.locked) { r.resume = false; return; } // back from the reminder after answering: keep the corrected item
+  r.resume = false;
+  renderItem();
+}
+function showReminderAgain() {
+  const a = ACT[state.run.actId];
+  $('rem-body').innerHTML = a.reminder(state.level);
+  if (state.run.timer) { clearInterval(state.run.timer); state.run.timer = null; }
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $('screen-reminder').classList.add('active');
+  state.run.resume = true;
+}
+function leaveRun() { uiConfirm('هل تريد مغادرة النشاط؟ لن تُحتسب نقط هذا النشاط إلا إذا أكملته.', showMenu); }
+function renderItem() {
+  const r = state.run, a = ACT[r.actId], item = r.items[r.idx];
+  r.locked = false;
+  $('play-title').textContent = a.title;
+  $('play-progress').textContent = `${r.idx + 1} / ${r.items.length}`;
+  $('play-score').textContent = r.score;
+  $('play-bar').style.width = (r.idx / r.items.length * 100) + '%';
+  $('play-feedback').style.display = 'none';
+  $('btn-next').style.display = 'none';
+  const area = $('play-area'); area.innerHTML = '';
+  a.render(item, area, {
+    finish(ok, earned, html) {
+      if (r.locked) return; r.locked = true;
+      if (r.timer) { clearInterval(r.timer); r.timer = null; }
+      const pts = earned === undefined ? (ok ? (item.pts || a.pts) : 0) : earned;
+      r.score += pts; if (ok) r.correct++; else r.wrong++;
+      $('play-score').textContent = r.score;
+      const fb = $('play-feedback'); fb.style.display = 'block';
+      fb.className = 'feedback ' + (ok ? 'ok' : 'ko');
+      fb.innerHTML = (ok ? `<strong>👏 أحسنت! (+${pts})</strong>` : `<strong>${pts ? `جواب جزئي (+${pts}) — ` : ''}لنصحح معا:</strong>`) + (html ? `<div style="margin-top:4px">${html}</div>` : '');
+      ok ? sound.ok() : sound.ko();
+      const nb = $('btn-next'); nb.style.display = 'inline-flex';
+      nb.textContent = r.idx + 1 < r.items.length ? 'التالي ←' : 'إنهاء النشاط 🏁';
+      setTimeout(() => nb.focus(), 50);
+    }
+  });
+}
+function nextItem() {
+  const r = state.run; sound.click();
+  r.idx++;
+  if (r.idx < r.items.length) renderItem(); else completeActivity();
+}
+function completeActivity() {
+  const r = state.run, a = ACT[r.actId];
+  const prev = state.results[r.actId];
+  if (!prev || r.score >= prev.score) state.results[r.actId] = { score: r.score, max: r.max, correct: r.correct, wrong: r.wrong };
+  saveSession();
+  const pct = Math.round(r.score / r.max * 100);
+  $('ad-stars').textContent = pct >= 80 ? '⭐⭐⭐' : pct >= 50 ? '⭐⭐☆' : '⭐☆☆';
+  $('ad-title').textContent = a.title;
+  $('ad-msg').textContent = pct >= 80 ? 'ممتاز! أنت متحكم في هذا النشاط.' : pct >= 50 ? 'عمل جيد، أعد النشاط لتتحسن أكثر.' : 'لا بأس، راجع بطاقة التذكير ثم أعد المحاولة.';
+  $('ad-score').textContent = `${r.score} / ${r.max}`;
+  $('ad-correct').textContent = `${r.correct} / ${r.items.length}`;
+  $('ad-pct').textContent = pct + '%';
+  state.run = null;
+  showScreen('screen-actdone');
+  sound.fanfare();
+}
+// Enter key helper on numeric inputs
+function onEnter(input, fn) { input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); fn(); } }); }
+function numInput(cls = '') {
+  const i = document.createElement('input');
+  i.type = 'text'; i.inputMode = 'numeric'; i.className = 'num-in ' + cls; i.autocomplete = 'off';
+  i.addEventListener('input', () => { i.value = i.value.replace(/[^0-9]/g, ''); });
+  return i;
+}
+function checkBtn(label, fn) {
+  const b = document.createElement('button'); b.className = 'btn btn-primary'; b.textContent = label || 'تحقق ✔'; b.onclick = fn; return b;
+}
+function lockAll(area) { area.querySelectorAll('input,button').forEach(x => x.disabled = true); }
+
+/* =====================================================================
+   8. ACTIVITIES
+   ===================================================================== */
+const ACT = {};
+
+/* ---------- 8.1 MENTAL MATH ---------- */
+ACT.mental = {
+  build(level) {
+    const kinds = mixKinds('mental' + level, MENTAL_KINDS[level], 10);
+    return distinct(10, i => mentalItem(kinds[i]));
+  },
+  reminder(level) {
+    const mult = level === 4 ? `
+      <div class="model-box"><h4>✖️ جداول الضرب — تقنية السلم</h4>
+      <p style="font-size:.9rem">لحساب ${L('3 × 2')}: أرسم 3 خطوط عمودية و2 خطوط أفقية، ثم أعد نقط التقاطع.</p>
+      <div style="text-align:center;margin:8px 0">${svgLadder(3, 2)}</div>
+      <p style="font-size:.9rem">عدد نقط التقاطع 6، إذن ${L('3 × 2 = 6')}. والضرب جمع متكرر: ${L('3 × 2 = 2 + 2 + 2')}.</p>
+      <p style="font-size:.85rem;color:var(--muted)">تذكر: ${L('a × 1 = a')} و ${L('a × 0 = 0')}.</p></div>` : '';
+    return `<ul class="rem-list">
+      <li>أحسب في ذهني بسرعة، ثم أكتب النتيجة وأضغط <strong>Enter</strong> أو «تحقق».</li>
+      <li>للجمع: أبدأ بالعدد الأكبر، وأكمل إلى العشرة: ${L('8 + 5 = 8 + 2 + 3 = 13')}.</li>
+      <li>للطرح: أفكر في الجمع المعاكس. ${L('15 − 9 = ?')} ← أبحث: ${L('9 + ? = 15')} ← الجواب 6.</li>
+      <li>لكل سؤال وقت محدود (الشريط البرتقالي). لا تتسرع، ولا تتأخر!</li>
+    </ul>
+    <div class="model-box"><h4>🧠 مثال محلول</h4>
+      <ol class="steps"><li>${L('9 + 7 = ?')} : أفكك 7 إلى 1 و6.</li><li>${L('9 + 1 = 10')} ثم ${L('10 + 6 = 16')}.</li><li>إذن ${L('9 + 7 = 16')}.</li></ol></div>${mult}`;
+  },
+  render(it, area, api) {
+    area.innerHTML = `<div class="timer"><div id="mm-t"></div></div>
+      <div class="q-box"><span class="q-big ltr">${it.expr}</span></div>`;
+    const line = document.createElement('div'); line.className = 'answer-line';
+    const inp = numInput(); const btn = checkBtn('تحقق ✔', check);
+    line.append(inp, btn); area.append(line); inp.focus();
+    const total = 15; let left = total;
+    state.run.timer = setInterval(() => {
+      left -= .1; const bar = $('mm-t'); if (bar) bar.style.width = Math.max(0, left / total * 100) + '%';
+      if (left <= 0) { lockAll(area); api.finish(false, 0, `انتهى الوقت ⏰ — الجواب: ${L(it.full)}`); }
+    }, 100);
+    onEnter(inp, check);
+    function check() {
+      if (inp.value === '') { inp.focus(); return; }
+      lockAll(area);
+      const ok = Number(inp.value) === it.ans;
+      api.finish(ok, undefined, ok ? L(it.full) : `الجواب الصحيح: ${L(it.full)}`);
+    }
+  }
+};
+function svgLadder(v, h) {
+  let s = '';
+  const W = 120, H = 90;
+  for (let i = 0; i < v; i++) { const x = 25 + i * (70 / Math.max(1, v - 1)); s += `<line x1="${x}" y1="5" x2="${x}" y2="${H - 5}" stroke="#0f766e" stroke-width="3"/>`; }
+  for (let j = 0; j < h; j++) { const y = 25 + j * (40 / Math.max(1, h - 1)); s += `<line x1="5" y1="${y}" x2="${W - 5}" y2="${y}" stroke="#f59e0b" stroke-width="3"/>`; }
+  for (let i = 0; i < v; i++) for (let j = 0; j < h; j++) { const x = 25 + i * (70 / Math.max(1, v - 1)), y = 25 + j * (40 / Math.max(1, h - 1)); s += `<circle cx="${x}" cy="${y}" r="5" fill="#dc2626"/>`; }
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${s}</svg>`;
+}
+
+/* ---------- 8.2 READ & WRITE NUMBERS ---------- */
+function wordDistractors(n) {
+  const s = String(n), len = s.length, out = new Set();
+  const swap = (str, i, j) => { const a = str.split(''); [a[i], a[j]] = [a[j], a[i]]; return a.join(''); };
+  const cands = [swap(s, len - 1, len - 2), swap(s, 0, 1)];
+  if (len >= 3) cands.push(swap(s, len - 3, len - 2));
+  for (let k = 0; k < 8; k++) { const a = s.split(''); const p = rand(0, len - 1); a[p] = String(rand(p === 0 ? 1 : 0, 9)); cands.push(a.join('')); }
+  for (const c of cands) { if (c !== s && c[0] !== '0' && c.length === len) out.add(Number(c)); if (out.size >= 3) break; }
+  while (out.size < 3) { const c = n + pick([10, -10, 100, -100, 1, -1]); if (c > 0 && String(c).length === len && c !== n) out.add(c); }
+  return [...out].slice(0, 3);
+}
+ACT.readwrite = {
+  build(level) {
+    const kinds = mixKinds('rw' + level, ['toWords', 'toDigits', 'wordsPick', 'toWords', 'toDigits'], 8);
+    return distinct(8, i => { const n = level === 3 ? (Math.random() < .15 ? rand(21, 99) : numForLevel(3, { zeros: true })) : numForLevel(4, { zeros: true }); return { n, mode: kinds[i], key: n }; });
+  },
+  reminder(level) {
+    const ex = level === 3 ? 653 : 2765;
+    const exw = toWords(ex);
+    const zero = level === 4 ? `<li>إذا كان في العدد صفر، لا أقرأ تلك المنزلة: ${L('2075')} ← ألفان وخمسة وسبعون.</li>` : `<li>إذا كان رقم العشرات صفرا لا أقرؤه: ${L('504')} ← خمس مئة وأربعة.</li>`;
+    return `<ul class="rem-list">
+      <li>أقرأ العدد حسب منازله: ${level === 4 ? 'الآلاف ثم ' : ''}المئات، ثم <strong>الوحدات قبل العشرات</strong>: ${L('65')} ← خمسة وستون.</li>
+      <li>أربط أجزاء العدد بحرف «و».</li>${zero}
+      <li>من الحروف إلى الأرقام: أكتب رقما في كل منزلة، وأضع 0 في المنزلة الفارغة.</li>
+    </ul>
+    <div class="model-box"><h4>📝 مثال محلول: ${L(ex)}</h4>
+      ${pvTableStatic(ex, level)}
+      <p style="font-weight:800;text-align:center">${exw}</p></div>`;
+  },
+  render(it, area, api) {
+    if (it.mode === 'toWords') {
+      area.innerHTML = `<div class="q-box">اختر الكتابة الصحيحة بالحروف للعدد:<br><span class="q-big ltr">${it.n}</span></div><div class="answers" id="rw-ans"></div>`;
+      const opts = shuffle([it.n, ...wordDistractors(it.n)]);
+      const box = area.querySelector('#rw-ans');
+      opts.forEach(o => {
+        const b = document.createElement('button'); b.className = 'ans-btn'; b.textContent = toWords(o);
+        b.onclick = () => {
+          area.querySelectorAll('.ans-btn').forEach(x => x.disabled = true);
+          const ok = o === it.n; b.classList.add(ok ? 'correct' : 'wrong');
+          if (!ok) [...box.children][opts.indexOf(it.n)].classList.add('correct');
+          api.finish(ok, undefined, `${L(it.n)} ← ${toWords(it.n)}`);
+        };
+        box.append(b);
+      });
+    } else if (it.mode === 'wordsPick') {
+      area.innerHTML = `<div class="q-box">اختر العدد المكتوب بالحروف:<br><span style="font-size:1.4rem;color:var(--primary-dark)">${toWords(it.n)}</span></div><div class="answers" id="rw-ans"></div>`;
+      const opts = shuffle([it.n, ...wordDistractors(it.n)]);
+      const box = area.querySelector('#rw-ans');
+      opts.forEach(o => {
+        const b = document.createElement('button'); b.className = 'ans-btn center'; b.textContent = o;
+        b.onclick = () => {
+          box.querySelectorAll('button').forEach(x => x.disabled = true);
+          const ok = o === it.n; b.classList.add(ok ? 'correct' : 'wrong');
+          if (!ok) [...box.children].find(x => Number(x.textContent) === it.n).classList.add('correct');
+          api.finish(ok, undefined, `${toWords(it.n)} ← ${L(it.n)}` + (ok ? '' : pvTableStatic(it.n, String(it.n).length === 4 ? 4 : 3)));
+        };
+        box.append(b);
+      });
+    } else {
+      area.innerHTML = `<div class="q-box">اكتب بالأرقام العدد:<br><span style="font-size:1.4rem;color:var(--primary-dark)">${toWords(it.n)}</span></div>`;
+      const line = document.createElement('div'); line.className = 'answer-line';
+      const inp = numInput(); line.append(inp, checkBtn('تحقق ✔', check)); area.append(line); inp.focus();
+      onEnter(inp, check);
+      function check() {
+        if (!inp.value) return inp.focus();
+        lockAll(area); const ok = Number(inp.value) === it.n;
+        api.finish(ok, undefined, `${toWords(it.n)} ← ${L(it.n)}` + (ok ? '' : pvTableStatic(it.n, String(it.n).length === 4 ? 4 : 3)));
+      }
+    }
+  }
+};
+function pvTableStatic(n, level) {
+  const places = level === 4 ? 4 : 3;
+  const d = String(n).padStart(places, '0').split('');
+  const heads = ['آلاف', 'مئات', 'عشرات', 'وحدات'].slice(4 - places);
+  return `<table class="pv" style="margin-top:8px"><tr>${heads.map(h => `<th>${h}</th>`).join('')}</tr><tr>${d.map(x => `<td class="show">${x}</td>`).join('')}</tr></table>`;
+}
+
+/* ---------- 8.3 REPRESENTATIONS (sticks & bundles, number wheel, money) ---------- */
+ACT.represent = {
+  build(level) {
+    const stickNum = () => Math.random() < .2 ? rand(23, 98) : rand(110, level === 3 ? 489 : 599);
+    const kinds = mixKinds('rep' + level, ['sticksRead', 'sticksBuild', 'wheelNum', 'wheelDecomp', 'moneyRead', 'moneyBuild'], 8);
+    return kinds.map(k => k === 'moneyRead' ? { kind: k, set: moneySet(level) } : { kind: k, n: k.startsWith('sticks') ? stickNum() : k === 'moneyBuild' ? moneyAmount() : numForLevel(level, { zeros: true }) });
+  },
+  reminder(level) {
+    return `<ul class="rem-list">
+      <li>${svgStick()} خشيبة واحدة = <strong>1 وحدة</strong> &nbsp; ${svgBundle()} حزمة = <strong>10 خشيبات</strong> (عشرة واحدة) &nbsp; ${svgHundred()} حزمة كبيرة = <strong>10 حزم = 100</strong> (مئة واحدة).</li>
+      <li><strong>قاعدة المبادلة:</strong> كلما جمعت 10 خشيبات أبادلها بحزمة، وكلما جمعت 10 حزم أبادلها بحزمة كبيرة.</li>
+      <li><strong>عجلة الأعداد:</strong> كل حلقة تمثل منزلة: ${level === 4 ? 'الآلاف، ' : ''}المئات، العشرات، والوحدات في المركز. أعدّ الحصى في كل حلقة: عدد الحصى هو رقم تلك المنزلة. مثلا حصاتان في حلقة المئات = ${L('200')}. الحلقة الفارغة = 0.</li>
+      <li><strong>النقود:</strong> ورقة 100 درهم = مئة (مئات)، ورقة 10 دراهم = عشرة (عشرات)، ورقة 1 درهم = وحدة. أعدّ أوراق المئات، ثم العشرات، ثم الوحدات. و10 أوراق من فئة 1 تساوي ورقة من فئة 10.</li>
+    </ul>
+    <div class="model-box"><h4>📝 مثال: العدد ${L(level === 3 ? 243 : 1352)} بتمثيلات مختلفة</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:center">
+        <div class="pieces" style="margin:0;min-height:60px">${piecesForSticks(243).join('')}</div>
+        ${svgWheel(level === 3 ? 243 : 1352, level).replace(/width="\d+" height="\d+"/, 'width="170" height="170"')}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">${[100, 100, 10, 10, 10, 10, 1, 1, 1].map(svgMoney).join('')}</div>
+      </div>
+      <p style="text-align:center;font-weight:800;margin-top:8px">${level === 3 ? `${L('243 = 200 + 40 + 3')} ← مئتان وثلاثة وأربعون` : `الخشيبات: ${L('243')} • العجلة: ${L('1352 = 1000 + 300 + 50 + 2')} • النقود: ${L('243 = 200 + 40 + 3')} درهما`}</p></div>`;
+  },
+  render(it, area, api) {
+    const self = this;
+    if (it.kind === 'sticksRead') {
+      area.innerHTML = `<div class="q-box">ما العدد الذي تمثله هذه الحزم والخشيبات؟</div>
+        <div class="pieces">${shuffle(piecesForSticks(it.n)).join('')}</div>`;
+      askNumber(area, it.n, api, () => `${explainSticks(it.n)}`);
+    } else if (it.kind === 'sticksBuild') {
+      area.innerHTML = `<div class="q-box">مثّل العدد <span class="q-big ltr">${it.n}</span> بالحزم الكبيرة والحزم والخشيبات.</div>
+        <div class="pieces" id="bp"></div><div class="builder" id="bb"></div>`;
+      const cnt = { 100: 0, 10: 0, 1: 0 };
+      const names = { 100: 'حزمة كبيرة (100)', 10: 'حزمة (10)', 1: 'خشيبة (1)' };
+      const draw = () => {
+        area.querySelector('#bp').innerHTML = [...Array(cnt[100]).fill(svgHundred()), ...Array(cnt[10]).fill(svgBundle()), ...Array(cnt[1]).fill(svgStick())].join('') || '<span style="color:var(--muted);font-size:.85rem">أضف القطع بالأزرار أسفله</span>';
+      };
+      const bb = area.querySelector('#bb');
+      [100, 10, 1].forEach(v => {
+        const u = document.createElement('div'); u.className = 'unit';
+        u.innerHTML = `${v === 100 ? svgHundred() : v === 10 ? svgBundle() : svgStick()}<div>${names[v]}</div>`;
+        const c = document.createElement('div'); c.className = 'ctrls';
+        const plus = document.createElement('button'); plus.className = 'btn btn-soft btn-sm'; plus.textContent = '+ أضف';
+        const minus = document.createElement('button'); minus.className = 'btn btn-secondary btn-sm'; minus.textContent = '− أزل';
+        plus.onclick = () => { if (cnt[v] < 15) { cnt[v]++; sound.click(); draw(); } };
+        minus.onclick = () => { if (cnt[v] > 0) { cnt[v]--; sound.click(); draw(); } };
+        c.append(plus, minus); u.append(c); bb.append(u);
+      });
+      draw();
+      const line = document.createElement('div'); line.className = 'answer-line';
+      line.append(checkBtn('تحقق من التمثيل ✔', () => {
+        const total = cnt[100] * 100 + cnt[10] * 10 + cnt[1];
+        if (total === 0) return;
+        lockAll(area);
+        const ok = total === it.n;
+        const canon = cnt[100] === Math.floor(it.n / 100) && cnt[10] === Math.floor(it.n / 10) % 10;
+        api.finish(ok, undefined, ok
+          ? (canon ? explainSticks(it.n) : `تمثيلك صحيح (${L(total)}). يمكنك أيضا تبادل كل 10 قطع بقطعة أكبر: ${explainSticks(it.n)}`)
+          : `تمثيلك يساوي ${L(total)} وليس ${L(it.n)}. ${explainSticks(it.n)}`);
+      }));
+      area.append(line);
+    } else if (it.kind === 'wheelNum') {
+      area.innerHTML = `<div class="q-box">اكتب بالأرقام العدد الممثل في عجلة الأعداد:</div><div class="wheel-wrap">${svgWheel(it.n, state.level)}</div>`;
+      askNumber(area, it.n, api, () => wheelExplain(it.n, state.level));
+    } else if (it.kind === 'wheelDecomp') {
+      const parts = decomp(it.n);
+      area.innerHTML = `<div class="q-box">اكتب العدد الممثل في عجلة الأعداد كتابة مفككة:</div><div class="wheel-wrap">${svgWheel(it.n, state.level)}</div>`;
+      const line = document.createElement('div'); line.className = 'answer-line'; line.style.direction = 'ltr';
+      const ins = parts.map((_, i) => { const x = numInput('sm'); return x; });
+      ins.forEach((x, i) => { line.append(x); if (i < ins.length - 1) { const s = document.createElement('span'); s.textContent = '+'; s.style.cssText = 'font-size:1.6rem;font-weight:800'; line.append(s); } });
+      area.append(line);
+      const l2 = document.createElement('div'); l2.className = 'answer-line'; l2.append(checkBtn('تحقق ✔', check)); area.append(l2);
+      ins[0].focus(); ins.forEach(x => onEnter(x, check));
+      function check() {
+        if (ins.some(x => !x.value)) return;
+        lockAll(area);
+        const got = ins.map(x => Number(x.value)).sort((a, b) => b - a), want = [...parts].sort((a, b) => b - a);
+        const ok = got.every((v, i) => v === want[i]);
+        api.finish(ok, undefined, wheelExplain(it.n, state.level));
+      }
+    } else if (it.kind === 'moneyRead') {
+      const total = it.set.reduce((s, v) => s + v, 0);
+      area.innerHTML = `<div class="q-box">كم درهما في هذه المحفظة؟</div><div class="pieces">${shuffle(it.set).map(svgMoney).join('')}</div>`;
+      askNumber(area, total, api, () => {
+        const sorted = [...it.set].sort((a, b) => b - a);
+        return `${notesPhrase(total)} ← ${L(decomp(total).join(' + ') + ' = ' + total)} درهما.`;
+      }, 'درهما');
+    } else if (it.kind === 'moneyBuild') {
+      const denoms = MONEY_NOTES;
+      area.innerHTML = `<div class="q-box">ضع في المحفظة <span class="q-big ltr">${it.n}</span> درهما بالضبط.</div>
+        <div class="pieces" id="mp"></div><div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px" id="mb"></div>`;
+      const put = [];
+      const draw = () => {
+        area.querySelector('#mp').innerHTML = put.length ? put.map((v, i) => `<span style="cursor:pointer" title="اضغط لإرجاعها" data-i="${i}">${svgMoney(v)}</span>`).join('') : '<span style="color:var(--muted);font-size:.85rem">اضغط على الأوراق أسفله لوضعها هنا (واضغط على ورقة في المحفظة لإرجاعها)</span>';
+        area.querySelectorAll('#mp [data-i]').forEach(sp => sp.onclick = () => { if (state.run.locked) return; put.splice(Number(sp.dataset.i), 1); sound.click(); draw(); });
+      };
+      const mb = area.querySelector('#mb');
+      denoms.forEach(v => { const b = document.createElement('button'); b.style.cssText = 'background:none;border:none;cursor:pointer'; b.innerHTML = svgMoney(v); b.onclick = () => { if (put.length < 30) { put.push(v); sound.click(); draw(); } }; mb.append(b); });
+      draw();
+      const line = document.createElement('div'); line.className = 'answer-line';
+      line.append(checkBtn('تحقق ✔', () => {
+        if (!put.length) return;
+        const total = put.reduce((s, v) => s + v, 0);
+        lockAll(area);
+        const ok = total === it.n;
+        api.finish(ok, undefined, ok ? `${L(decomp(total).join(' + ') + ' = ' + total)} درهما.` : `في محفظتك ${L(total)} درهما. التمثيل الصحيح: ${notesPhrase(it.n)} (${L(decomp(it.n).join(' + '))})`);
+      }));
+      area.append(line);
+    }
+  }
+};
+function greedy(n, denoms) { const out = []; let r = n; denoms.forEach(d => { while (r >= d) { out.push(d); r -= d; } }); return out; }
+function explainSticks(n) {
+  const h = Math.floor(n / 100), t = Math.floor(n / 10) % 10, u = n % 10;
+  return `${h ? h + ' حزمة كبيرة (' + L(h * 100) + ') و' : ''}${t} حزم (${L(t * 10)}) و${u} خشيبات (${L(u)}) ← ${L(n)}`;
+}
+function askNumber(area, ans, api, explain, unit) {
+  const line = document.createElement('div'); line.className = 'answer-line';
+  const inp = numInput(); line.append(inp);
+  if (unit) { const s = document.createElement('span'); s.textContent = unit; s.style.fontWeight = '800'; line.append(s); }
+  line.append(checkBtn('تحقق ✔', check)); area.append(line); inp.focus();
+  onEnter(inp, check);
+  function check() {
+    if (!inp.value) return inp.focus();
+    lockAll(area); const ok = Number(inp.value) === ans;
+    api.finish(ok, undefined, (ok ? '' : `الجواب: ${L(ans)}. `) + explain());
+  }
+}
+
+/* ---------- 8.4 PLACE VALUE ---------- */
+ACT.place = {
+  build(level) {
+    const kinds = mixKinds('place' + level, ['table', 'digitOf', 'valueOf', 'decompose', 'compose', 'nextPrev', 'addPlace', 'makeMax'], 8);
+    return kinds.map(k => {
+      let n = numForLevel(level, { zeros: k !== 'digitOf' && k !== 'valueOf' });
+      if (k === 'nextPrev' && Math.random() < .6) { const d = digitsOf(n); d[d.length - 1] = 9; if (Math.random() < .5) d[d.length - 2] = 9; n = Number(d.join('')); }
+      return { kind: k, n, dir: pick(['after', 'before']), step: pick(level === 3 ? [10, 100] : [10, 100, 1000]), sign: pick([1, 1, -1]), big: Math.random() < .6 };
+    });
+  },
+  reminder(level) {
+    const ex = level === 3 ? 572 : 4572;
+    return `<ul class="rem-list">
+      <li>لكل رقم في العدد منزلة: من اليمين إلى اليسار <strong>الوحدات، العشرات، المئات${level === 4 ? '، الآلاف' : ''}</strong>.</li>
+      <li>قيمة الرقم تتغير حسب منزلته: الرقم 5 في ${L(ex)} قيمته ${L('500')}.</li>
+      <li>الكتابة المفككة: ${L(`${ex} = ${decomp(ex).join(' + ')}`)}.</li>
+      <li>الصفر يحفظ مكان المنزلة الفارغة: ${L(level === 3 ? '305 = 300 + 5' : '3405 = 3000 + 400 + 5')}.</li>
+    </ul>
+    <div class="model-box"><h4>📝 مثال: العدد ${L(ex)} في جدول المنازل</h4>${pvTableStatic(ex, level)}
+    <p style="text-align:center;font-weight:700">رقم المئات هو 5 • رقم العشرات هو 7 • رقم الوحدات هو 2${level === 4 ? ' • رقم الآلاف هو 4' : ''}</p></div>`;
+  },
+  render(it, area, api) {
+    const places = state.level === 4 ? 4 : 3;
+    const d = String(it.n).padStart(places, '0').split('').map(Number);
+    if (it.kind === 'table') {
+      const heads = ['آلاف', 'مئات', 'عشرات', 'وحدات'].slice(4 - places);
+      area.innerHTML = `<div class="q-box">ضع كل رقم من أرقام العدد <span class="q-big ltr">${it.n}</span> في منزلته:</div>
+        <table class="pv"><tr>${heads.map(h => `<th>${h}</th>`).join('')}</tr><tr>${heads.map((_, i) => `<td><input maxlength="1" inputmode="numeric" data-i="${i}"></td>`).join('')}</tr></table>`;
+      const ins = [...area.querySelectorAll('table.pv input')];
+      ins.forEach((x, i) => { x.addEventListener('input', () => { x.value = x.value.replace(/[^0-9]/g, ''); if (x.value && ins[i + 1]) ins[i + 1].focus(); }); onEnter(x, check); });
+      ins[0].focus();
+      const line = document.createElement('div'); line.className = 'answer-line'; line.append(checkBtn('تحقق ✔', check)); area.append(line);
+      function check() {
+        if (ins.some(x => x.value === '')) return;
+        lockAll(area);
+        const ok = ins.every((x, i) => Number(x.value) === d[i]);
+        api.finish(ok, undefined, pvTableStatic(it.n, places));
+      }
+    } else if (it.kind === 'digitOf' || it.kind === 'valueOf') {
+      const p = rand(0, places - 1); // index from left
+      const placeFromRight = places - 1 - p;
+      const digit = d[p];
+      let q, correct, opts;
+      if (it.kind === 'digitOf') {
+        q = `ما هو رقم <strong>${PLACE_NAMES[placeFromRight]}</strong> في العدد <span class="q-big ltr">${it.n}</span>؟`;
+        correct = String(digit);
+        const set = new Set([correct]); d.forEach(x => set.add(String(x)));
+        while (set.size < 4) set.add(String(rand(0, 9)));
+        opts = shuffle([...set].slice(0, 4)); if (!opts.includes(correct)) opts[0] = correct;
+      } else {
+        const nz = d.map((x, i) => ({ x, i })).filter(o => o.x !== 0);
+        const sel = pick(nz); const pr = places - 1 - sel.i;
+        q = `ما قيمة الرقم <strong>${sel.x}</strong> في العدد <span class="q-big ltr">${it.n}</span>؟`;
+        correct = String(sel.x * Math.pow(10, pr));
+        opts = [0, 1, 2, 3].slice(0, places).map(k => String(sel.x * Math.pow(10, k)));
+        if (opts.length < 4) opts.push(String(sel.x * 1000));
+        opts = shuffle([...new Set(opts)]);
+        it._expl = `الرقم ${sel.x} في منزلة ${PLACE_SING[pr]}، إذن قيمته ${L(correct)}.`;
+      }
+      area.innerHTML = `<div class="q-box">${q}</div><div class="answers" id="pv-ans"></div>`;
+      const box = area.querySelector('#pv-ans');
+      opts.forEach(o => {
+        const b = document.createElement('button'); b.className = 'ans-btn center'; b.textContent = o;
+        b.onclick = () => {
+          box.querySelectorAll('button').forEach(x => x.disabled = true);
+          const ok = o === correct; b.classList.add(ok ? 'correct' : 'wrong');
+          if (!ok) [...box.children].find(x => x.textContent === correct).classList.add('correct');
+          api.finish(ok, undefined, it._expl || pvTableStatic(it.n, places));
+        };
+        box.append(b);
+      });
+    } else if (it.kind === 'decompose') {
+      const parts = decomp(it.n);
+      area.innerHTML = `<div class="q-box">أكمل الكتابة المفككة للعدد <span class="q-big ltr">${it.n}</span>:</div>`;
+      const line = document.createElement('div'); line.className = 'answer-line'; line.style.direction = 'ltr';
+      const lbl = document.createElement('span'); lbl.style.cssText = 'font-size:1.6rem;font-weight:800'; lbl.textContent = it.n + ' ='; line.append(lbl);
+      const ins = parts.map(() => numInput('sm'));
+      ins.forEach((x, i) => { line.append(x); if (i < ins.length - 1) { const s = document.createElement('span'); s.textContent = '+'; s.style.cssText = 'font-size:1.6rem;font-weight:800'; line.append(s); } onEnter(x, check); });
+      area.append(line);
+      const l2 = document.createElement('div'); l2.className = 'answer-line'; l2.append(checkBtn('تحقق ✔', check)); area.append(l2); ins[0].focus();
+      function check() {
+        if (ins.some(x => !x.value)) return;
+        lockAll(area);
+        const ok = ins.every((x, i) => Number(x.value) === parts[i]);
+        api.finish(ok, undefined, `${L(it.n + ' = ' + parts.join(' + '))}`);
+      }
+    } else if (it.kind === 'nextPrev') {
+      const ans = it.dir === 'after' ? it.n + 1 : it.n - 1;
+      area.innerHTML = `<div class="q-box">ما العدد الذي يأتي مباشرة <strong>${it.dir === 'after' ? 'بعد' : 'قبل'}</strong> العدد <span class="q-big ltr">${it.n}</span>؟</div>`;
+      askNumber(area, ans, api, () => `${L(it.dir === 'after' ? `${it.n} + 1 = ${ans}` : `${it.n} − 1 = ${ans}`)}` + (String(it.n).endsWith('9') && it.dir === 'after' ? ' — انتبه: 10 وحدات تصبح عشرة واحدة.' : ''));
+    } else if (it.kind === 'addPlace') {
+      const step = it.sign < 0 && it.n < it.step ? it.step / 10 : it.step;
+      const ans = it.sign > 0 ? it.n + step : it.n - step;
+      const name = { 1: 'وحدة', 10: 'عشرة', 100: 'مئة', 1000: 'ألف' }[step];
+      if (ans > (places === 4 ? 9999 : 999) || ans < 0) { it.sign = -it.sign; }
+      const fin = it.sign > 0 ? it.n + step : it.n - step;
+      area.innerHTML = `<div class="q-box">${it.sign > 0 ? 'أضف' : 'أنقص'} <strong>${L(step)}</strong> (${name}) ${it.sign > 0 ? 'إلى' : 'من'} العدد <span class="q-big ltr">${it.n}</span></div>`;
+      askNumber(area, fin, api, () => `${L(`${it.n} ${it.sign > 0 ? '+' : '−'} ${step} = ${fin}`)} — يتغير رقم منزلة ${step === 10 ? 'العشرات' : step === 100 ? 'المئات' : step === 1000 ? 'الآلاف' : 'الوحدات'}${String(fin).length !== String(it.n).length || Math.floor(fin / (step * 10)) !== Math.floor(it.n / (step * 10)) ? ' مع المبادلة' : ''}.`);
+    } else if (it.kind === 'makeMax') {
+      const ds = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]).slice(0, places);
+      const sorted = [...ds].sort((a, b) => it.big ? b - a : a - b);
+      const ans = Number(sorted.join(''));
+      area.innerHTML = `<div class="q-box">كوّن <strong>${it.big ? 'أكبر' : 'أصغر'}</strong> عدد ممكن بالأرقام: <span class="q-big ltr">${ds.join(' ، ')}</span><br><span style="font-size:.85rem;color:var(--muted)">(استعمل كل رقم مرة واحدة)</span></div>`;
+      askNumber(area, ans, api, () => `${it.big ? 'أضع الرقم الأكبر في أعلى منزلة' : 'أضع الرقم الأصغر في أعلى منزلة'}: ${L(ans)}`);
+    } else { // compose
+      const parts = shuffle(decomp(it.n));
+      area.innerHTML = `<div class="q-box">ما العدد الذي يساوي:<br><span class="q-big ltr">${parts.join(' + ')}</span></div>`;
+      askNumber(area, it.n, api, () => `أرتب حسب المنازل: ${L(decomp(it.n).join(' + ') + ' = ' + it.n)}`);
+    }
+  }
+};
+
+/* ---------- 8.5 COMPARE & ORDER ---------- */
+function comparePair(level) {
+  const n = numForLevel(level);
+  const s = String(n), len = s.length;
+  const t = rand(0, 4);
+  let m;
+  if (t === 0) m = n; // equal
+  else if (t === 1) { const a = s.split(''); [a[len - 1], a[len - 2]] = [a[len - 2], a[len - 1]]; m = Number(a.join('')); } // swapped tens/units
+  else if (t === 2) m = n + pick([10, -10, 100, -100]);
+  else if (t === 3) m = level === 3 ? rand(10, 99) : rand(100, 999); // fewer digits
+  else { const a = s.split(''); a[0] = String(Math.max(1, Math.min(9, Number(a[0]) + pick([-1, 1])))); m = Number(a.join('')); }
+  if (m <= 0) m = n + 10;
+  return Math.random() < .5 ? [n, m] : [m, n];
+}
+function orderSet(level) {
+  const len = level === 3 ? 3 : 4;
+  const base = level === 3 ? rand(1, 8) * 100 : rand(1, 8) * 1000;
+  const span = level === 3 ? 199 : 1999;
+  const set = new Set();
+  while (set.size < 4) {
+    let v = base + rand(0, span);
+    if (Math.random() < .35) { // same digits, tens and units swapped: the classic trap
+      const d = String(v).split(''); [d[len - 1], d[len - 2]] = [d[len - 2], d[len - 1]]; v = Number(d.join(''));
+    }
+    if (String(v).length === len) set.add(v);
+  }
+  return [...set];
+}
+ACT.compare = {
+  build(level) {
+    const extra = mixKinds('cmp' + level, ['pickMax', 'pickMin', 'between', 'order'], 3);
+    const kinds = shuffle(['cmp', 'cmp', 'cmp', 'cmp', 'order', ...extra]);
+    return kinds.map(k => {
+      if (k === 'cmp') { const [a, b] = comparePair(level); return { kind: k, a, b }; }
+      return { kind: k, nums: orderSet(level), dir: pick(['asc', 'desc']) };
+    });
+  },
+  reminder(level) {
+    const ex = level === 3 ? ['457', '475'] : ['3258', '3285'];
+    return `<ul class="rem-list">
+      <li>العدد الذي له <strong>أرقام أكثر</strong> هو الأكبر: ${L(level === 3 ? '125 > 98' : '1025 > 987')}.</li>
+      <li>إذا كان للعددين نفس عدد الأرقام، أقارن <strong>من اليسار</strong>: ${level === 4 ? 'الآلاف، ثم ' : ''}المئات، ثم العشرات، ثم الوحدات.</li>
+      <li>الرموز: ${L('&gt;')} أكبر من • ${L('&lt;')} أصغر من • ${L('=')} يساوي. فتحة الرمز تتجه دائما نحو العدد الأكبر 🐊.</li>
+      <li>الترتيب <strong>التصاعدي</strong>: من الأصغر إلى الأكبر. الترتيب <strong>التنازلي</strong>: من الأكبر إلى الأصغر.</li>
+    </ul>
+    <div class="model-box"><h4>📝 مثال محلول: ${L(ex[0] + ' ? ' + ex[1])}</h4>
+      <ol class="steps"><li>للعددين نفس عدد الأرقام.</li><li>${level === 4 ? 'الآلاف متساوية (3)، والمئات متساوية (2).' : 'المئات متساوية (4).'}</li><li>أقارن العشرات: ${level === 4 ? '5 أصغر من 8' : '5 أصغر من 7'}.</li><li>إذن ${L(ex[0] + ' &lt; ' + ex[1])}.</li></ol></div>`;
+  },
+  render(it, area, api) {
+    if (it.kind === 'cmp') {
+      const correct = it.a > it.b ? '>' : it.a < it.b ? '<' : '=';
+      area.innerHTML = `<div class="q-box">اختر الرمز المناسب:<br><span class="q-big ltr">${it.a} &nbsp;<span style="display:inline-block;border:2px dashed #94a3b8;border-radius:8px;width:52px" id="cmp-slot">?</span>&nbsp; ${it.b}</span></div><div class="answers" id="cmp-ans" style="grid-template-columns:repeat(3,1fr)"></div>`;
+      const box = area.querySelector('#cmp-ans');
+      ['<', '=', '>'].forEach(sym => {
+        const b = document.createElement('button'); b.className = 'ans-btn center'; b.textContent = sym; b.style.direction = 'ltr';
+        b.onclick = () => {
+          box.querySelectorAll('button').forEach(x => x.disabled = true);
+          const ok = sym === correct; b.classList.add(ok ? 'correct' : 'wrong');
+          area.querySelector('#cmp-slot').textContent = correct;
+          if (!ok) [...box.children].find(x => x.textContent === correct).classList.add('correct');
+          api.finish(ok, undefined, `${L(`${it.a} ${correct.replace('<', '&lt;').replace('>', '&gt;')} ${it.b}`)} — ${explainCmp(it.a, it.b)}`);
+        };
+        box.append(b);
+      });
+    } else if (it.kind === 'pickMax' || it.kind === 'pickMin' || it.kind === 'between') {
+      let q, correct, opts;
+      if (it.kind === 'between') {
+        const s = [...it.nums].sort((a, b) => a - b);
+        const lo = s[0], hi = s[3] - s[0] < 4 ? s[0] + rand(8, 60) : s[3];
+        correct = rand(lo + 1, hi - 1);
+        const outs = new Set();
+        while (outs.size < 3) { const v = pick([lo - rand(1, 40), hi + rand(1, 40), lo, hi]); if (v > 0 && v !== correct) outs.add(v); }
+        opts = shuffle([correct, ...outs]);
+        q = `اختر العدد المحصور بين <span class="ltr">${lo}</span> و <span class="ltr">${hi}</span>:`;
+        it._expl = `${L(`${lo} < ${correct} < ${hi}`.replace(/</g, '&lt;'))}`;
+      } else {
+        opts = shuffle(it.nums);
+        correct = it.kind === 'pickMax' ? Math.max(...opts) : Math.min(...opts);
+        q = `اختر <strong>${it.kind === 'pickMax' ? 'أكبر' : 'أصغر'}</strong> عدد:`;
+        it._expl = `${L(correct)} — أقارن من اليسار، منزلة بمنزلة.`;
+      }
+      area.innerHTML = `<div class="q-box">${q}</div><div class="answers" id="pk-ans"></div>`;
+      const box = area.querySelector('#pk-ans');
+      opts.forEach(o => {
+        const b = document.createElement('button'); b.className = 'ans-btn center'; b.textContent = o;
+        b.onclick = () => {
+          box.querySelectorAll('button').forEach(x => x.disabled = true);
+          const ok = o === correct; b.classList.add(ok ? 'correct' : 'wrong');
+          if (!ok) [...box.children].find(x => Number(x.textContent) === correct).classList.add('correct');
+          api.finish(ok, undefined, it._expl);
+        };
+        box.append(b);
+      });
+    } else {
+      let cur = shuffle(it.nums);
+      const want = [...it.nums].sort((a, b) => it.dir === 'asc' ? a - b : b - a);
+      if (cur.every((v, i) => v === want[i])) cur = cur.reverse();
+      area.innerHTML = `<div class="q-box">رتب الأعداد ترتيبا <strong>${it.dir === 'asc' ? 'تصاعديا ⬆️ (من الأصغر إلى الأكبر)' : 'تنازليا ⬇️ (من الأكبر إلى الأصغر)'}</strong>، من الأعلى إلى الأسفل:</div><div class="seq-list" id="seq"></div>`;
+      const draw = () => {
+        area.querySelector('#seq').innerHTML = cur.map((v, i) => `<div class="seq-item"><span><span class="badge" style="margin-left:8px">${i + 1}</span><span class="ltr">${v}</span></span>
+          <span><button class="seq-btn" data-i="${i}" data-d="-1" ${i === 0 ? 'disabled' : ''}>▲</button><button class="seq-btn" data-i="${i}" data-d="1" ${i === cur.length - 1 ? 'disabled' : ''}>▼</button></span></div>`).join('');
+        area.querySelectorAll('.seq-btn').forEach(b => b.onclick = () => {
+          const i = Number(b.dataset.i), j = i + Number(b.dataset.d);
+          [cur[i], cur[j]] = [cur[j], cur[i]]; sound.click(); draw();
+        });
+      };
+      draw();
+      const line = document.createElement('div'); line.className = 'answer-line';
+      line.append(checkBtn('تحقق من الترتيب ✔', () => {
+        lockAll(area);
+        const ok = cur.every((v, i) => v === want[i]);
+        api.finish(ok, undefined, `الترتيب الصحيح: ${L(want.join(it.dir === 'asc' ? ' &lt; ' : ' &gt; '))}`);
+      }));
+      area.append(line);
+    }
+  }
+};
+function explainCmp(a, b) {
+  if (a === b) return 'العددان متساويان.';
+  const sa = String(a), sb = String(b);
+  if (sa.length !== sb.length) return `العدد ${L(sa.length > sb.length ? a : b)} له أرقام أكثر.`;
+  for (let i = 0; i < sa.length; i++) if (sa[i] !== sb[i]) {
+    return `نقارن ${PLACE_NAMES[sa.length - 1 - i]}: ${sa[i]} و ${sb[i]}.`;
+  }
+  return '';
+}
+
+/* ---------- 8.6 OPERATIONS (column) ---------- */
+const hasCarry = (a, b) => { const x = digitsOf(a).reverse(), y = digitsOf(b).reverse(); for (let i = 0; i < Math.max(x.length, y.length); i++) if ((x[i] || 0) + (y[i] || 0) >= 10) return true; return false; };
+const hasBorrow = (a, b) => { const x = digitsOf(a).reverse(), y = digitsOf(b).reverse(); for (let i = 0; i < y.length; i++) if (x[i] < y[i]) return true; return false; };
+function genOp(level, op) {
+  for (let k = 0; k < 200; k++) {
+    let a, b;
+    if (op === '+') {
+      if (level === 3) { const two = Math.random() < .3; a = two ? rand(25, 89) : rand(25, 589); b = two ? rand(15, 79) : rand(15, 399); if (a + b > 999) continue; }
+      else { a = rand(1050, 6999); b = rand(150, 2999); if (a + b > 9999) continue; }
+      if (!hasCarry(a, b)) continue;
+    } else if (op === '-') {
+      if (level === 3) { a = rand(40, 950); b = rand(12, a - 5); }
+      else { a = rand(2000, 9800); b = rand(500, a - 100); }
+      if (!hasBorrow(a, b)) continue;
+    } else { a = rand(12, Math.random() < .3 ? 99 : 49); b = rand(2, 9); }
+    return { a, b, op, ans: calc(a, op, b) };
+  }
+  return { a: 47, b: 28, op: '+', ans: 75 };
+}
+function opSteps(a, op, b) {
+  const steps = [];
+  if (op === '+') {
+    const x = digitsOf(a).reverse(), y = digitsOf(b).reverse(); let c = 0;
+    for (let i = 0; i < Math.max(x.length, y.length); i++) {
+      const s = (x[i] || 0) + (y[i] || 0) + c;
+      const txt = `${PLACE_NAMES[i]}: ${L(`${x[i] || 0} + ${y[i] || 0}${c ? ' + 1' : ''} = ${s}`)}`;
+      if (s >= 10 && i < Math.max(x.length, y.length) - 1) steps.push(`${txt} ← أكتب ${s % 10} وأحتفظ بـ 1`);
+      else steps.push(`${txt} ← أكتب ${s}`);
+      c = s >= 10 ? 1 : 0;
+    }
+  } else if (op === '-') {
+    const x = digitsOf(a).reverse(), y = digitsOf(b).reverse(); let br = 0;
+    for (let i = 0; i < x.length; i++) {
+      let top = x[i] - br; const bot = y[i] || 0;
+      if (i >= y.length && br === 0) { if (i < x.length - 1 || top > 0) steps.push(`${PLACE_NAMES[i]}: أنزل ${top}`); continue; }
+      if (top < 0) { steps.push(`${PLACE_NAMES[i]}: بعد المبادلة السابقة لم يبق شيء هنا، فآخذ 1 من ${PLACE_NAMES[i + 1]}: يصبح ${top + 10}، ثم ${L(`${top + 10} − ${bot} = ${top + 10 - bot}`)}`); br = 1; continue; }
+      if (top < bot) { steps.push(`${PLACE_NAMES[i]}: ${top} أصغر من ${bot} ← أبادل: آخذ 1 من ${PLACE_NAMES[i + 1]} فيصبح ${top + 10}، ثم ${L(`${top + 10} − ${bot} = ${top + 10 - bot}`)}`); br = 1; }
+      else { steps.push(`${PLACE_NAMES[i]}: ${L(`${top} − ${bot} = ${top - bot}`)}${br ? ' (بعد إنقاص 1 بسبب المبادلة)' : ''}`); br = 0; }
+    }
+  } else {
+    const x = digitsOf(a).reverse(); let c = 0;
+    for (let i = 0; i < x.length; i++) {
+      const p = x[i] * b + c;
+      const txt = `${PLACE_NAMES[i]}: ${L(`${b} × ${x[i]}${c ? ' + ' + c : ''} = ${p}`)}`;
+      if (i < x.length - 1 && p >= 10) steps.push(`${txt} ← أكتب ${p % 10} وأحتفظ بـ ${Math.floor(p / 10)}`);
+      else steps.push(`${txt} ← أكتب ${p}`);
+      c = Math.floor(p / 10);
+    }
+  }
+  return `<ul>${steps.map(s => `<li>${s}</li>`).join('')}</ul><div style="margin-top:4px">النتيجة: ${L(`${a} ${OP_SYM[op]} ${b} = ${calc(a, op, b)}`)}</div>`;
+}
+ACT.ops = {
+  build(level) {
+    const ops = shuffle(level === 3 ? ['+', '+', '+', '+', '-', '-', '-', '-'] : ['+', '+', '+', '-', '-', '-', 'x', 'x']);
+    return distinct(8, i => { const o = genOp(level, ops[i]); o.key = o.a + ops[i] + o.b; return o; });
+  },
+  reminder(level) {
+    const mult = level === 4 ? `<div class="model-box"><h4>✖️ ضرب عدد من رقمين في عدد من رقم: ${L('43 × 2')}</h4>
+      ${colStatic(43, 'x', 2, 86)}
+      <ol class="steps"><li>الوحدات: ${L('2 × 3 = 6')} ← أكتب 6.</li><li>العشرات: ${L('2 × 4 = 8')} ← أكتب 8.</li><li>النتيجة: ${L('43 × 2 = 86')}. (الضرب جمع متكرر: ${L('43 + 43 = 86')})</li></ol></div>` : '';
+    return `<ul class="rem-list">
+      <li>أضع الأرقام بعضها تحت بعض: الوحدات تحت الوحدات، والعشرات تحت العشرات، والمئات تحت المئات (منزل العمليات).</li>
+      <li>أبدأ دائما بـ<strong>الوحدات</strong> (الخشيبات)، ثم أنتقل نحو اليسار.</li>
+      <li><strong>الجمع بالاحتفاظ:</strong> إذا تجاوز المجموع 9، أبادل 10 وحدات بعشرة واحدة وأضعها فوق المنزلة الموالية (غرفة الضيوف).</li>
+      <li><strong>الطرح بمبادلة:</strong> إذا كان الرقم الأعلى أصغر، أفك عشرة واحدة إلى 10 وحدات.</li>
+      <li>أكتب النتيجة في الخانات <strong>من اليمين إلى اليسار</strong>. خانات الاحتفاظ الصغيرة (البرتقالية) لمساعدتي فقط.</li>
+    </ul>
+    <div class="model-box"><h4>📝 مثال: الطرح بمبادلة ${L('42 − 15')}</h4>
+      ${colStatic(42, '-', 15, 27)}
+      <ol class="steps"><li>الوحدات: 2 أصغر من 5 ← أفك حزمة: 2 تصبح 12، و${L('12 − 5 = 7')}.</li><li>العشرات: بقيت 3 حزم، ${L('3 − 1 = 2')}.</li><li>النتيجة: ${L('42 − 15 = 27')}.</li></ol></div>${mult}`;
+  },
+  render(it, area, api) {
+    area.innerHTML = `<div class="q-box">ضع وأنجز العملية: <span class="ltr" style="font-size:1.5rem">${it.a} ${OP_SYM[it.op]} ${it.b}</span></div>`;
+    const width = Math.max(String(it.a).length, String(it.b).length, String(it.ans).length);
+    const cols = width + 1;
+    const g = document.createElement('div'); g.className = 'col-op'; g.style.gridTemplateColumns = `repeat(${cols}, auto)`;
+    const heads = ['', ...Array.from({ length: width }, (_, i) => ['و', 'ع', 'م', 'آ', 'ع.آ'][width - 1 - i] || '')];
+    heads.forEach(h => { const c = document.createElement('div'); c.className = 'cell col-head'; c.textContent = h; c.style.height = '18px'; g.append(c); });
+    // carry row
+    g.append(Object.assign(document.createElement('div'), { className: 'cell' }));
+    for (let i = 0; i < width; i++) { const c = document.createElement('div'); c.className = 'cell carry'; const x = document.createElement('input'); x.maxLength = 2; x.inputMode = 'numeric'; x.title = 'خانة الاحتفاظ / المبادلة (اختيارية)'; c.append(x); g.append(c); }
+    const rowNum = (sign, n) => {
+      const s = document.createElement('div'); s.className = 'cell'; s.textContent = sign; g.append(s);
+      const str = String(n).padStart(width, ' ');
+      for (const ch of str) { const c = document.createElement('div'); c.className = 'cell'; c.textContent = ch.trim(); g.append(c); }
+    };
+    rowNum('', it.a); rowNum(OP_SYM[it.op], it.b);
+    g.append(Object.assign(document.createElement('div'), { className: 'op-line' }));
+    g.append(Object.assign(document.createElement('div'), { className: 'cell' }));
+    const res = [];
+    for (let i = 0; i < width; i++) { const c = document.createElement('div'); c.className = 'cell res'; const x = document.createElement('input'); x.maxLength = 1; x.inputMode = 'numeric'; c.append(x); g.append(c); res.push(x); }
+    area.append(g);
+    res.forEach((x, i) => {
+      x.addEventListener('input', () => { x.value = x.value.replace(/[^0-9]/g, ''); if (x.value && i > 0) res[i - 1].focus(); });
+      x.addEventListener('keydown', e => { if (e.key === 'Backspace' && !x.value && i < res.length - 1) res[i + 1].focus(); if (e.key === 'Enter') check(); });
+    });
+    res[res.length - 1].focus();
+    const line = document.createElement('div'); line.className = 'answer-line'; line.append(checkBtn('تحقق ✔', check)); area.append(line);
+    function check() {
+      const s = res.map(x => x.value).join('');
+      if (!s) return res[res.length - 1].focus();
+      lockAll(area);
+      const ok = Number(s) === it.ans && /^\d+$/.test(s.trim());
+      res.forEach(x => x.style.borderColor = ok ? 'var(--success)' : 'var(--danger)');
+      api.finish(ok, undefined, opSteps(it.a, it.op, it.b));
+    }
+  }
+};
+function colStatic(a, op, b, r) {
+  const w = Math.max(String(a).length, String(b).length, String(r).length);
+  const row = (sign, n, bold) => `<div class="cell">${sign}</div>` + String(n).padStart(w, ' ').split('').map(ch => `<div class="cell" ${bold ? 'style="color:var(--primary)"' : ''}>${ch.trim()}</div>`).join('');
+  return `<div class="col-op" style="grid-template-columns:repeat(${w + 1},auto)">${row('', a)}${row(OP_SYM[op], b)}<div class="op-line"></div>${row('', r, true)}</div>`;
+}
+
+/* ---------- 8.7 PROBLEM SOLVING (four-questions strategy) ---------- */
+ACT.problems = {
+  build(level) {
+    const tpls = pickFresh('prob' + level, problemTemplates(level), 6, t => t.id);
+    return tpls.map(t => {
+      const p = makeProblem(level, t);
+      p.others = shuffle(problemTemplates(level).filter(o => o.id !== t.id)).slice(0, 2).map(o => makeProblem(level, o));
+      return p;
+    });
+  },
+  reminder(level) {
+    const ex = level === 3
+      ? { t: 'تملك سعاد 46 خشيبة، قدمت لفدوى 18 خشيبة. كم أصبح لدى سعاد من خشيبة؟', d: 'تملك سعاد 46 خشيبة، وقدمت 18 خشيبة.', k: 'حساب عدد الخشيبات التي بقيت لدى سعاد.', o: 'الطرح', w: 'لأن عدد الخشيبات نقص.', s: 'عدد الخشيبات الذي أصبح لدى سعاد هو: ' + L('46 − 18 = 28') }
+      : { t: 'زرع البستاني في حديقة المدرسة 3 صفوف من الورود، في كل صف 30 وردة. كم وردة زرعها البستاني؟', d: 'زرع البستاني 3 صفوف، في كل صف 30 وردة.', k: 'حساب عدد الورود التي زرعها البستاني.', o: 'الضرب', w: 'لأن العدد 30 يتكرر 3 مرات.', s: 'عدد الورود هو: ' + L('30 × 3 = 90') + ' وردة' };
+    return `<p style="font-size:.92rem;margin-bottom:8px">لحل أي مسألة، أقرأها جيدا، أغمض عيني وأتخيلها، ثم أجيب عن <strong>الأسئلة الأربعة</strong>:</p>
+    <ul class="rem-list">${FOUR_Q.map(q => `<li>${q.icon} ${q.q}</li>`).join('')}</ul>
+    <div class="model-box"><h4>📝 مسألة محلولة</h4>
+      <div class="problem-text" style="font-size:1rem">${ex.t}</div>
+      <ol class="steps"><li><strong>المعلومات:</strong> ${ex.d}</li><li><strong>المطلوب:</strong> ${ex.k}</li><li><strong>ماذا أفعل؟</strong> أقوم بعملية ${ex.o}.</li><li><strong>لماذا؟</strong> ${ex.w}</li><li><strong>الحل:</strong> ${ex.s}</li></ol></div>`;
+  },
+  render(it, area, api) {
+    const others = it.others;
+    const ops = state.level === 3 ? ['+', '-'] : ['+', '-', 'x'];
+    const steps = [
+      { q: FOUR_Q[0].q, correct: it.data, opts: shuffle([it.data, ...others.map(o => o.data)]) },
+      { q: FOUR_Q[1].q, correct: it.ask, opts: shuffle([it.ask, ...others.map(o => o.ask)]) },
+      { q: FOUR_Q[2].q, correct: 'أقوم بعملية ' + OP_NAME[it.op] + '.', opts: ops.map(o => 'أقوم بعملية ' + OP_NAME[o] + '.') },
+      { q: FOUR_Q[3].q, correct: it.why, opts: shuffle([it.why, ...ops.filter(o => o !== it.op).map(o => OP_WHY[o])]) }
+    ];
+    let k = 0, earned = 0, allOk = true;
+    area.innerHTML = `<div class="problem-text">${it.text}</div><div class="fourq" id="fq">${FOUR_Q.map((q, i) => `<span data-i="${i}">${q.icon} ${['المعلومات', 'المطلوب', 'العملية', 'لماذا؟'][i]}</span>`).concat('<span data-i="4">✍️ الحل</span>').join('')}</div><div id="pstep"></div>`;
+    const step = area.querySelector('#pstep');
+    const mark = (i, cls) => { const s = area.querySelector(`#fq [data-i="${i}"]`); s.className = cls; };
+    const showStep = () => {
+      mark(k, 'on');
+      const st = steps[k];
+      step.innerHTML = `<div class="q-box" style="font-size:1rem">${FOUR_Q[k].icon} ${st.q}</div><div class="answers"></div>`;
+      const box = step.querySelector('.answers');
+      st.opts.forEach(o => {
+        const b = document.createElement('button'); b.className = 'ans-btn'; b.textContent = o;
+        b.onclick = () => {
+          box.querySelectorAll('button').forEach(x => x.disabled = true);
+          const ok = o === st.correct; b.classList.add(ok ? 'correct' : 'wrong');
+          if (ok) { earned += 1; sound.ok(); } else { allOk = false; sound.ko(); [...box.children].find(x => x.textContent === st.correct).classList.add('correct'); }
+          mark(k, 'ok');
+          setTimeout(() => { k++; k < 4 ? showStep() : showSolve(); }, ok ? 700 : 1600);
+        };
+        box.append(b);
+      });
+    };
+    const showSolve = () => {
+      mark(4, 'on');
+      step.innerHTML = `<div class="q-box" style="font-size:1rem">✍️ أنجز العملية واكتب النتيجة:<br><span class="ltr" style="font-size:1.6rem">${it.a} ${OP_SYM[it.op]} ${it.b} = ?</span></div>`;
+      const line = document.createElement('div'); line.className = 'answer-line';
+      const inp = numInput(); const u = document.createElement('span'); u.textContent = it.unit; u.style.fontWeight = '800';
+      line.append(inp, u, checkBtn('تحقق ✔', check)); step.append(line); inp.focus(); onEnter(inp, check);
+      function check() {
+        if (!inp.value) return inp.focus();
+        lockAll(area);
+        const ok = Number(inp.value) === it.ans;
+        if (ok) earned += 6;
+        mark(4, 'ok');
+        api.finish(ok && allOk, earned, `<strong>الحل:</strong> ${it.sent}: ${L(`${it.a} ${OP_SYM[it.op]} ${it.b} = ${it.ans}`)} ${it.unit}.${ok ? '' : opSteps(it.a, it.op, it.b)}`);
+      }
+    };
+    showStep();
+  }
+};
+
+/* ---------- registry (order follows the lessons) ---------- */
+const ACTIVITIES = [
+  { id: 'mental', icon: '⚡', bg: '#fef3c7', fg: '#b45309', title: 'الحساب الذهني', count: 10, pts: 5,
+    desc: { 3: 'جمع عددين من رقم واحد، وطرح يكون فيه الفرق بين 0 و18، بسرعة وبوقت محدد.', 4: 'جمع وطرح سريع، وجداول الضرب من 2 إلى 9 (تقنية السلم).' } },
+  { id: 'readwrite', icon: '🔤', bg: '#e0f2fe', fg: '#0369a1', title: 'قراءة وكتابة الأعداد', count: 8, pts: 10,
+    desc: { 3: 'من الأرقام إلى الحروف ومن الحروف إلى الأرقام (0 إلى 999).', 4: 'من الأرقام إلى الحروف ومن الحروف إلى الأرقام (0 إلى 9999)، مع الأعداد التي فيها صفر.' } },
+  { id: 'represent', icon: '🪵', bg: '#ffedd5', fg: '#9a3412', title: 'تمثيلات مختلفة للأعداد', count: 8, pts: 10,
+    desc: { 3: 'الخشيبات والحزم، عجلة الأعداد، ثم الأوراق النقدية (1 و10 و100 درهم): أقرأ وأمثّل.', 4: 'الخشيبات والحزم، عجلة الأعداد بالآلاف، ثم الأوراق النقدية (1 و10 و100 درهم).' } },
+  { id: 'place', icon: '🏠', bg: '#dcfce7', fg: '#166534', title: 'منازل الأعداد', count: 8, pts: 10,
+    desc: { 3: 'الوحدات والعشرات والمئات: جدول المنازل، قيمة الرقم، الكتابة المفككة.', 4: 'الوحدات والعشرات والمئات والآلاف: جدول المنازل، قيمة الرقم، الكتابة المفككة.' } },
+  { id: 'compare', icon: '⚖️', bg: '#f3e8ff', fg: '#7e22ce', title: 'مقارنة الأعداد وترتيبها', count: 8, pts: 10,
+    desc: { 3: 'الرموز > و < و =، والترتيب التصاعدي والتنازلي.', 4: 'مقارنة أعداد من أربعة أرقام، والترتيب التصاعدي والتنازلي.' } },
+  { id: 'ops', icon: '➕', bg: '#ccfbf1', fg: '#0f766e', title: 'العمليات', count: 8, pts: 10,
+    desc: { 3: 'الجمع بالاحتفاظ والطرح بمبادلة في منزل العمليات.', 4: 'الجمع والطرح بالأعداد الكبيرة، وضرب عدد من رقمين في عدد من رقم.' } },
+  { id: 'problems', icon: '🧩', bg: '#fee2e2', fg: '#b91c1c', title: 'حل المسائل', count: 6, pts: 10,
+    desc: { 3: 'استراتيجية الأسئلة الأربعة: وضعيات جمع وطرح.', 4: 'استراتيجية الأسئلة الأربعة: وضعيات جمع وطرح وضرب.' } }
+];
+ACTIVITIES.forEach(a => { ACT[a.id].pts = a.pts; Object.assign(ACT[a.id], { title: a.title, icon: a.icon, bg: a.bg, fg: a.fg }); });
+
+/* =====================================================================
+   9. FINAL RESULTS
+   ===================================================================== */
+function finishAll() {
+  saveSession();
+  const score = totalScore(), done = Object.keys(state.results).length;
+  const doneMax = Object.values(state.results).reduce((s, r) => s + r.max, 0);
+  const pct = doneMax ? Math.round(score / doneMax * 100) : 0;
+  $('res-name').textContent = state.student.name;
+  $('res-class').textContent = classLabel();
+  $('res-done').textContent = `${done} / ${ACTIVITIES.length}`;
+  $('res-score').textContent = `${score} / ${maxTotal()}`;
+  $('res-pct').textContent = pct + '%';
+  $('res-msg').textContent = pct >= 85 ? 'أداء ممتاز! أنت متحكم في التعلمات الأساس.' : pct >= 60 ? 'أداء جيد، واصل التدرب لتتقن أكثر.' : 'بداية طيبة! راجع بطاقات التذكير وأعد الأنشطة.';
+  $('res-table').innerHTML = `<tr><th>النشاط</th><th>النقط</th><th>النسبة</th></tr>` + ACTIVITIES.map(a => {
+    const r = state.results[a.id];
+    if (!r) return `<tr><td>${a.icon} ${a.title}</td><td>—</td><td><span class="pct na">لم ينجز</span></td></tr>`;
+    const p = Math.round(r.score / r.max * 100);
+    return `<tr><td>${a.icon} ${a.title}</td><td>${r.score} / ${r.max}</td><td><span class="pct ${p >= 80 ? 'hi' : p >= 50 ? 'mid' : 'lo'}">${p}%</span></td></tr>`;
+  }).join('');
+  showScreen('screen-results');
+  renderCloudStatus(); setTimeout(renderCloudStatus, 4000);
+  sound.fanfare();
+}
+function restartApp() {
+  state.student = { name: '', group: '' }; state.level = null; state.sessionId = null; state.results = {}; state.run = null;
+  $('in-name').value = ''; $('in-group').value = ''; $('login-err').style.display = 'none';
+  document.querySelectorAll('.level-card, .chip').forEach(c => c.classList.remove('active'));
+  showScreen('screen-welcome');
+}
+
+/* =====================================================================
+   10. TEACHER SPACE
+   ===================================================================== */
+function authTeacher() {
+  if ($('t-pwd').value.trim() === getPwd()) {
+    sound.ok(); $('t-login').style.display = 'none'; $('t-panel').style.display = 'block'; renderTeacher(); renderCloudStatus();
+  } else { sound.ko(); uiAlert('القن السري غير صحيح.'); }
+}
+function recoverPwd() {
+  uiPrompt('أدخل رمز الاسترجاع الخاص بك لإرجاع القن الأصلي:', v => {
+    if (v.trim().toUpperCase() !== RECOVERY_CODE) { sound.ko(); return uiAlert('رمز الاسترجاع غير صحيح.'); }
+    try { localStorage.removeItem(PWD_KEY); } catch (e) {}
+    sound.ok(); uiAlert('تمت إعادة القن الأصلي: ' + DEFAULT_PWD + ' — ادخل به ثم غيّره إن شئت.');
+  });
+}
+function changePwd() {
+  uiPrompt('اكتب القن السري الجديد (6 أحرف على الأقل):', p => {
+    if (p.trim().length < 6) return uiAlert('القن قصير جدا.');
+    try { localStorage.setItem(PWD_KEY, p.trim()); uiAlert('تم تغيير القن السري.'); } catch (e) { uiAlert('تعذر الحفظ على هذا المتصفح.'); }
+  });
+}
+function filtered() {
+  const q = $('t-search').value.trim().toLowerCase(), lv = $('t-level').value;
+  return loadAll().filter(r => (!lv || String(r.level) === lv) && (!q || r.name.toLowerCase().includes(q) || String(r.group).toLowerCase().includes(q)));
+}
+const pctCell = v => v === undefined ? '<span class="pct na">—</span>' : `<span class="pct ${v >= 80 ? 'hi' : v >= 50 ? 'mid' : 'lo'}">${v}%</span>`;
+function renderTeacher() {
+  const rows = filtered();
+  $('t-head').innerHTML = `<tr><th>#</th><th>الاسم</th><th>المستوى</th><th>الفوج</th><th>التاريخ</th>${ACTIVITIES.map(a => `<th title="${a.title}">${a.icon}</th>`).join('')}<th>الرصيد</th><th>/20</th><th>النجاح</th></tr>`;
+  $('t-body').innerHTML = rows.length ? rows.map((r, i) => `<tr><td>${i + 1}</td><td><strong>${esc(r.name)}</strong></td><td>${r.level}</td><td><span class="badge">${esc(r.group)}</span></td><td style="color:var(--muted);font-size:.72rem">${esc(r.updated || r.date)}</td>
+    ${ACTIVITIES.map(a => `<td>${pctCell(r.acts ? r.acts[a.id] : undefined)}</td>`).join('')}
+    <td><strong>${r.score}</strong></td><td><strong style="color:#3730a3">${r.grade20}</strong></td><td>${pctCell(r.pct)}</td></tr>`).join('')
+    : `<tr><td colspan="${8 + ACTIVITIES.length}" style="text-align:center;color:var(--muted);padding:18px">لا توجد نتائج مسجلة بعد</td></tr>`;
+  $('t-bars').innerHTML = ACTIVITIES.map(a => {
+    const vals = rows.map(r => r.acts && r.acts[a.id]).filter(v => v !== undefined);
+    const avg = vals.length ? Math.round(vals.reduce((s, v) => s + v, 0) / vals.length) : null;
+    const col = avg === null ? '#e2e8f0' : avg >= 80 ? '#16a34a' : avg >= 50 ? '#eab308' : '#dc2626';
+    return `<div class="bar-row"><span>${a.icon} ${a.title}</span><div class="bar-track"><div class="bar-fill" style="width:${avg || 0}%;background:${col}"></div></div><span>${avg === null ? '—' : avg + '%'}</span></div>`;
+  }).join('') + `<div style="font-size:.75rem;color:var(--muted);margin-top:4px">عدد المحاولات المعروضة: ${rows.length}</div>`;
+}
+function exportCSV() {
+  const rows = filtered();
+  if (!rows.length) return uiAlert('لا توجد نتائج للتصدير.');
+  const q = s => `"${String(s).replace(/"/g, '""')}"`;
+  const head = ['الاسم', 'المستوى', 'الفوج', 'التاريخ', ...ACTIVITIES.map(a => a.title + ' %'), 'الأنشطة المنجزة', 'الرصيد', 'العلامة /20', 'نسبة النجاح %'];
+  const lines = rows.map(r => [q(r.name), r.level, q(r.group), q(r.updated || r.date), ...ACTIVITIES.map(a => r.acts && r.acts[a.id] !== undefined ? r.acts[a.id] : ''), r.done, r.score, r.grade20, r.pct].join(','));
+  const csv = '﻿' + [head.map(q).join(','), ...lines].join('\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+  const a = document.createElement('a'); a.href = url; a.download = `نتائج_دعم_الرياضيات_${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function clearResults() {
+  uiConfirm('هل تريد حذف كل النتائج المسجلة على هذا الجهاز نهائيا؟', () => {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    renderTeacher();
+  });
+}
+
+/* =====================================================================
+   11. LESSON SUMMARIES (drawer)
+   ===================================================================== */
+function renderDrawer(level) {
+  $('tab-3').className = 'btn btn-sm ' + (level === 3 ? 'btn-primary' : 'btn-secondary');
+  $('tab-4').className = 'btn btn-sm ' + (level === 4 ? 'btn-primary' : 'btn-secondary');
+  const lv = LEVELS[level];
+  const ex = level === 3 ? 653 : 6453;
+  $('drawer-body').innerHTML = `
+    <p style="font-size:.8rem;color:var(--muted)">هيكلة المسار: ${lv.path}</p>
+    <h4>🎯 أهداف المرحلة</h4><ul>${lv.goals.map(g => `<li>${g}</li>`).join('')}</ul>
+    <h4>1. الحساب الذهني</h4>
+    <ul><li>الجمع شفويا لعددين من رقم واحد (جدول الجمع).</li><li>الطرح شفويا حين يكون الفرق بين 0 و18 (جدول الطرح).</li>${level === 4 ? '<li>جداول الضرب من 1 إلى 9، وبناؤها بتقنية السلم: أعد نقط تقاطع الخطوط.</li>' : ''}</ul>
+    <h4>2. قراءة وكتابة الأعداد</h4>
+    <p>${L(ex)} ← ${toWords(ex)}. أقرأ ${level === 4 ? 'الآلاف ثم ' : ''}المئات ثم الوحدات قبل العشرات، وأربط بـ«و».</p>
+    <h4>3. تمثيلات مختلفة</h4>
+    <ul><li>خشيبة = 1، حزمة = 10 خشيبات، حزمة كبيرة = 10 حزم = 100.</li><li>عجلة الأعداد: كل حلقة منزلة، وعدد الحصى في الحلقة هو رقم تلك المنزلة.</li><li>النقود: أوراق من فئة 100 درهم (مئات) و10 دراهم (عشرات) و1 درهم (وحدات).</li></ul>
+    <h4>4. منازل الأعداد</h4>
+    ${pvTableStatic(ex, level)}<p>الكتابة المفككة: ${L(ex + ' = ' + decomp(ex).join(' + '))}</p>
+    <h4>5. المقارنة والترتيب</h4>
+    <ul><li>الأكثر أرقاما هو الأكبر.</li><li>عند تساوي عدد الأرقام أقارن من اليسار.</li><li>تصاعدي: من الأصغر إلى الأكبر • تنازلي: من الأكبر إلى الأصغر.</li></ul>
+    <h4>6. العمليات</h4>
+    <ul><li>أبدأ بالوحدات، وأحترم المنازل في منزل العمليات.</li><li>الجمع بالاحتفاظ: 10 وحدات = عشرة واحدة أضعها في غرفة الضيوف.</li><li>الطرح بمبادلة: أفك عشرة إلى 10 وحدات إذا كان الرقم الأعلى أصغر.</li>${level === 4 ? `<li>الضرب جمع متكرر: ${L('4 × 3 = 3 + 3 + 3 + 3')}. أضرب الوحدات ثم العشرات مع الاحتفاظ.</li>` : ''}</ul>
+    <h4>7. حل المسائل — الأسئلة الأربعة</h4>
+    <ol>${FOUR_Q.map(q => `<li>${q.q}</li>`).join('')}</ol>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:16px">إعداد: الأستاذ الحسين بوربيع — <span class="ltr">LHOUSSAINE BOURBI — S.S GUIGOU — BOULMANE 2026</span></p>`;
+}
+</script>
+</body>
+</html>
